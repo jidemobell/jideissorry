@@ -1,0 +1,865 @@
+%% ICEGOV 2026 Submission — NITDA Workshop
+%% Sectoral Data for Development: Leveraging Indicators for Data-Driven Digital Governance
+%% Track 6: New Metrics and Approaches for Measuring Digital Governance Success
+
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=0.85in]{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tgheros}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+
+%% Color definitions
+\definecolor{primary-blue}{RGB}{0,51,102}
+\definecolor{light-grey}{gray}{0.85}
+\definecolor{dark-grey}{gray}{0.4}
+\definecolor{accent-green}{RGB}{34,139,34}
+\definecolor{dev-orange}{RGB}{204,85,0}
+
+%% Section formatting with colored rules
+\titleformat{\section}{
+    \color{primary-blue}\bfseries\Large\raggedright
+}{}{0em}{}[\color{light-grey}{\titlerule[2pt]}\vspace{-8pt}]
+
+\titleformat{\subsection}{
+    \color{primary-blue}\bfseries\large\raggedright
+}{}{0em}{}[\vspace{-4pt}]
+
+\titleformat{\subsubsection}{
+    \color{primary-blue}\bfseries\normalsize\raggedright
+}{}{0em}{}
+
+%% Paragraph spacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+%% Hyperlink colours
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary-blue,
+    urlcolor=primary-blue,
+    citecolor=dark-grey
+}
+
+%% ======================================================
+%%  DOCUMENT BODY
+%% ======================================================
+\begin{document}
+
+%% ----- Title block -----
+\begin{center}
+    \vspace*{0.3cm}
+    {\color{primary-blue}\LARGE\textbf{From Collective Punishment to Evidence-Based Trust}}\\[8pt]
+    {\color{primary-blue}\large\textbf{A Framework for Nigeria's Digital Travel Registry as a Diplomatic Data Asset}}\\[14pt]
+    {\color{dark-grey}\normalsize\textbf{Olajide Adewale Olaniyan}}\\[3pt]
+    {\color{dark-grey}\small IBM Ireland, Dublin, Ireland \quad\textbar\quad
+     \href{mailto:jidemobell@gmail.com}{jidemobell@gmail.com}}\\[10pt]
+    \fcolorbox{light-grey}{light-grey!30}{%
+    \begin{minipage}{0.90\textwidth}
+    \centering\small\color{dark-grey}
+    ICEGOV 2026 \textbf{\textperiodcentered} NITDA Workshop: Sectoral Data for Development
+    \textbf{\textperiodcentered} Track~6: New Metrics for Digital Governance
+    \textbf{\textperiodcentered} Deadline: 24 April 2026
+    \end{minipage}}
+    \vspace{0.3cm}
+\end{center}
+
+%% ----- Abstract + Keywords box -----
+\noindent\colorbox{primary-blue!7}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+\vspace{6pt}
+\textbf{\color{primary-blue}Abstract.}\quad
+Nigeria's passport remains among the most visa-restricted in the world, a status that
+disproportionately penalises the overwhelming majority of Nigerian citizens who travel
+lawfully for education, business, and family purposes.
+This paper argues that the root cause of this diplomatic vulnerability is not a
+disproportionate rate of travel-related misconduct, but rather a systemic absence of
+verifiable, aggregate travel behaviour data that could demonstrate compliance at scale.
+We propose the Nigerian Digital Travel Registry (NDTR)---a mandatory digital travel
+declaration framework modelled on the Philippines' eTravel system---as both a governance
+modernisation tool and a diplomatic data asset.
+The NDTR framework is examined across four functional dimensions:
+(i) generating compliance evidence to counter blanket visa restrictions;
+(ii) enabling proactive security monitoring through anomaly detection in travel patterns;
+(iii) strengthening Nigeria's position in bilateral visa negotiations through
+evidence-based advocacy; and
+(iv) modernising Nigerian border management in alignment with ICAO, ECOWAS,
+and African Union digital governance standards.
+Drawing on a comparative case study of the Philippines eTravel system---whose
+data-driven approach contributed to Canada granting visa-free access to Filipino
+citizens---we develop a phased implementation roadmap that integrates Nigeria's
+National Identity Number (NIN), the Nigeria Immigration Service (NIS), and the
+National Data Protection Commission (NDPC) into a coherent digital migration
+governance architecture.
+The paper contributes a replicable framework for leveraging sectoral travel
+data as a development indicator and as an instrument for restoring national
+reputational capital in the global migration system.
+
+\vspace{4pt}
+\textbf{\color{primary-blue}Keywords:}\quad
+digital travel registry \textbf{\textperiodcentered} migration governance
+\textbf{\textperiodcentered} diplomatic data \textbf{\textperiodcentered} Nigeria
+\textbf{\textperiodcentered} visa restrictions \textbf{\textperiodcentered} eTravel
+\textbf{\textperiodcentered} anomaly detection \textbf{\textperiodcentered} NIN
+\textbf{\textperiodcentered} border management \textbf{\textperiodcentered} data-driven governance
+\vspace{6pt}
+\end{minipage}}
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{Introduction}
+%% ----------------------------------------------------------
+
+The Nigerian passport currently ranks among the least powerful in the world,
+granting visa-free or visa-on-arrival access to fewer than 45 destinations
+as of 2025~\cite{henley2025}. This places Nigerian citizens in a position of
+systematic travel disadvantage compared to peers in countries of comparable
+economic development and, in some cases, countries with documented rates of
+irregular migration that rival or exceed Nigeria's. The Philippines,
+Colombia, and Ghana---all confronting similar immigration challenges at
+various points in their recent histories---have progressed toward greater
+passport freedom in part by investing in governance systems that generate
+verifiable data on the travel behaviour of their citizens.
+
+Nigeria, by contrast, has yet to implement a comprehensive digital travel
+declaration system. The consequence is structural: Nigerian immigration
+authorities negotiate at the bilateral level without the evidentiary tools
+needed to differentiate the travel behaviour of the vast majority of
+lawful travellers from a statistically small minority responsible for
+immigration violations.
+The result is what this paper terms a \textit{data absence penalty}---a
+measurable degradation in diplomatic standing attributable not to
+demonstrated national misconduct, but to the inability to prove its
+absence.
+
+This paper proposes the Nigerian Digital Travel Registry (NDTR) as the
+policy and technical intervention designed to close this gap. The NDTR is
+a mandatory, digital, pre-departure and arrival declaration system for all
+Nigerian citizens travelling internationally. The framework is modelled on
+the Philippines' eTravel system, which the authors of this paper personally
+used during a visit to the Philippines in January 2026, providing firsthand
+evidence of the system's usability and operational design. But the NDTR
+goes further, integrating Nigeria's National Identity Number (NIN)
+infrastructure to create a persistent, privacy-preserving travel behaviour
+profile that can be aggregated at a national level for diplomatic and
+security purposes.
+
+The motivation for this research is grounded in a specific policy problem:
+the majority of Nigerians who travel internationally do so lawfully,
+yet they bear the costs---in visa refusals, heightened scrutiny, and
+reputational stigma---of a small minority. Estimates based on
+immigration enforcement data from major destination countries suggest
+that the proportion of Nigerian travellers involved in documented
+violations rarely exceeds \(0.1\%\) to \(0.5\%\) of total annual
+outbound travel~\cite{iom2023,unodc2022}. The NDTR is the instrument
+by which this statistical reality can be made visible and actionable.
+
+The remainder of this paper is structured as follows.
+Section~\ref{sec:background} situates the problem within the global
+migration governance context.
+Section~\ref{sec:related} reviews comparable digital travel declaration
+systems.
+Section~\ref{sec:framework} presents the NDTR architecture and design
+principles.
+Section~\ref{sec:security} examines the system's proactive security
+monitoring capabilities.
+Section~\ref{sec:diplomatic} develops the diplomatic applications of NDTR
+data.
+Section~\ref{sec:border} addresses border management modernisation and
+international standards alignment.
+Section~\ref{sec:roadmap} proposes a phased implementation roadmap.
+Section~\ref{sec:conclusion} concludes with policy recommendations.
+
+%% ----------------------------------------------------------
+\section{Background: The Data Absence Penalty}
+\label{sec:background}
+%% ----------------------------------------------------------
+
+\subsection{Nigeria's Passport Restriction Problem}
+
+Nigeria's Henley Passport Index ranking has remained in the bottom
+quartile globally for over a decade~\cite{henley2025}. This is not a
+static condition but a cascading one: as visa restrictions accumulate,
+they reinforce perceptions that justify further restrictions in a
+self-amplifying reputational cycle. The diplomatic cost is significant.
+Nigerian professionals, academics, and businesspeople routinely face
+visa refusals, processing delays, and travel bans that their peers
+from other developing nations do not, regardless of individual
+travel history or socioeconomic standing.
+
+Crucially, the restrictions are not uniformly evidence-based.
+Several countries that impose the most stringent restrictions on
+Nigerian passports---including the Philippines, Colombia, and EU
+Schengen member states---do so on the basis of aggregate immigration
+enforcement data that does not distinguish between the rare offender
+and the frequent lawful traveller. The absence of countervailing
+Nigerian government data leaves destination-country immigration
+authorities with no alternative evidentiary basis for policy
+differentiation.
+
+\subsection{The Collective Punishment Problem}
+
+The term \textit{collective punishment} in the immigration policy context
+refers to the application of restrictive migration controls at a
+population level, based on the actions of a statistically marginal
+subset of that population~\cite{castles2013}. This represents a classic
+case of \textit{base rate neglect}~\cite{kahneman2011}: policymakers
+respond to high-visibility incidents---a drug courier, a fraudulent
+asylum claim, an immigration overstay---without reference to the
+statistical base from which those incidents are drawn.
+
+If, conservatively, 5 million Nigerian international trips occur
+annually and 5,000 result in documented violations, the violation
+rate is 0.1\%. A visa restriction applied nationally punishes the
+99.9\% to control the 0.1\%. More critically, it does not control
+the 0.1\% either---it merely inconveniences them at the point of
+application while motivated actors find alternative routes.
+The practical effect is to harm the legitimate traveller while
+providing minimal security gain.
+
+The Nigerian government's diplomatic response to this situation has
+historically been rhetorical rather than evidentiary. Without a
+national travel data system, Nigeria cannot present the quantitative
+case that would shift bilateral conversations from perception to fact.
+
+\subsection{The Asylum Fraud Dimension}
+
+A related but distinct problem is the pattern of asylum claims lodged
+by Nigerian nationals in European and North American jurisdictions
+that do not reflect genuine persecution risk. Immigration tribunals in
+Ireland, the United Kingdom, and Germany have noted a pattern of
+Nigerian asylum applicants who have demonstrable employment histories,
+prior international travel records, and no documented nexus to regions
+affected by insecurity in Nigeria---yet claim refugee status on the
+basis of generalised fear~\cite{eurostat2024,irishnat2023}.
+
+The absence of verifiable, longitudinal travel and socioeconomic data
+from the Nigerian government means that receiving-country adjudicators
+must make credibility determinations without access to the kind of
+``digital footprint'' profile that would make fabrication substantially
+harder. An individual with a documented history of 12 international
+business trips across 5 years, registered through the NDTR with NIN
+linkage, presents a very different profile to an asylum adjudicator
+than a claimant whose travel record is entirely opaque.
+This cross-border data sharing capability---with appropriate bilateral
+agreements and privacy safeguards---would simultaneously deter
+fraudulent claims and protect the credibility of genuine ones.
+
+%% ----------------------------------------------------------
+\section{Related Work: Digital Travel Declaration Systems}
+\label{sec:related}
+%% ----------------------------------------------------------
+
+A range of digital travel authorisation and declaration systems have
+been deployed globally, with varying degrees of sophistication and
+diplomatic effect. Table~\ref{tab:systems} provides a comparative
+overview of the most relevant systems.
+
+\begin{table}[ht]
+\caption{Comparative Digital Travel Declaration Systems}
+\label{tab:systems}
+\small
+\begin{tabularx}{\columnwidth}{@{}lXll@{}}
+\toprule
+\textbf{System} & \textbf{Function} & \textbf{Year} & \textbf{Outcome} \\
+\midrule
+US ESTA         & Pre-travel authorisation for visa-waiver travellers & 2009 & Risk stratification \\
+Canada eTA      & Electronic travel authorisation, linked to biometrics & 2015 & Reduced fraud \\
+Australia ETA   & Electronic travel authority, real-time processing & 1996 & Model for APAC \\
+Philippines eTravel & Pre-departure/arrival declaration for all travellers & 2022 & Canada visa-free 2024 \\
+EU EES          & Entry/exit system tracking Schengen overstays & 2024 & Overstay monitoring \\
+EU ETIAS        & Pre-travel screening for visa-exempt travellers & 2025 & Risk assessment \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{The Philippines eTravel System: Primary Case Study}
+
+The Philippines' eTravel system, launched in 2022 under the Bureau of
+Immigration and the Department of Information and Communications
+Technology, is the most directly analogous reference system for the
+proposed NDTR. It is mandatory for all travellers entering or departing
+the Philippines---including foreign nationals---and requires
+pre-registration of trip details, accommodation, and health declarations
+through a mobile application or web portal~\cite{philippinesetravel2022}.
+
+From the perspective of this paper's primary research, the system was
+personally used by the lead author during a visit to the Philippines in
+January 2026. The eTravel platform---accessed via the \textit{eGovPH}
+super-application---generated unique QR code-based travel declarations
+for both arrival (Ireland to Philippines, 14 January 2026, cleared at
+Ninoy Aquino International Airport Terminal 3) and departure
+(Philippines to Ireland, 20 January 2026). The system maintains a
+timestamped, verifiable travel history accessible to the traveller and
+to immigration officers.
+
+The key governance value of the Philippines eTravel system lies not in
+its UX but in its data architecture: every trip generates a unique
+reference number linked to passport details, declared purpose,
+accommodation address, and flight routing. This creates a nationally
+aggregated compliance database. By 2024, the Philippines leveraged its
+broader digital governance improvements---of which eTravel is a
+component---in bilateral negotiations that resulted in Canada granting
+visa-free access to Philippine passport holders~\cite{canada2024ph}.
+This is the diplomatic feedback loop that the NDTR seeks to replicate
+for Nigeria.
+
+Importantly, the Philippines itself restricts Nigerian passport entry,
+requiring a visa. The fact that a Nigerian traveller is required to
+use the Philippines' digital travel declaration system to enter that
+country---while Nigeria operates no equivalent system for its own
+outbound citizens---illustrates the asymmetry the NDTR is designed to
+address.
+
+\subsection{Limitations of Existing Systems for Nigeria}
+
+Existing systems in the Nigerian context include the Nigeria Immigration
+Service's e-passport and the ECOWAS travel certificate. However, neither
+constitutes a \textit{behavioural data registry}: they are identity
+documents rather than trip-level declaration systems. The critical
+distinction is that the NDTR is not about travel authorisation
+(which destination countries control) but about \textit{travel declaration}
+by Nigerian citizens to their own government---creating a national data
+asset from outbound mobility patterns.
+
+%% ----------------------------------------------------------
+\section{The NDTR Framework}
+\label{sec:framework}
+%% ----------------------------------------------------------
+
+\subsection{Design Principles}
+
+The NDTR is designed around five core principles:
+
+\begin{enumerate}[label=\textbf{P\arabic*.}, leftmargin=*]
+  \item \textbf{Mandatory universality.} All Nigerian citizens travelling
+  internationally must register each trip, both outbound and inbound.
+  No exceptions below diplomatic exemption level.
+
+  \item \textbf{NIN anchoring.} Each travel declaration is linked to the
+  traveller's National Identity Number, creating a verified, persistent
+  identity anchor across all declarations.
+
+  \item \textbf{Minimal friction design.} The registration interface must
+  be completable in under 5 minutes via mobile application, USSD, or
+  web portal, to ensure accessibility across the Nigerian digital
+  divide.
+
+  \item \textbf{Data sovereignty.} All raw declaration data resides within
+  Nigerian jurisdiction, under the governance of the National Data
+  Protection Commission (NDPC), with strict controls on external access.
+
+  \item \textbf{Structured openness.} Aggregated, anonymised compliance
+  statistics are made available to bilateral treaty partners and
+  international organisations under formal data-sharing agreements.
+\end{enumerate}
+
+\subsection{Core Data Fields}
+
+Each NDTR declaration captures the following minimum dataset:
+
+\begin{itemize}
+  \item Traveller NIN and passport number
+  \item Origin and destination country
+  \item Declared purpose of travel (education, business, tourism, medical,
+  family, other)
+  \item Planned duration of stay
+  \item Accommodation address (destination)
+  \item Carrier and flight/vessel identifier
+  \item Emergency contact in Nigeria
+  \item Return declaration (confirmed upon re-entry)
+\end{itemize}
+
+The return declaration is critical: it closes the loop on each trip,
+generating a \textit{compliance event} when a traveller returns within
+their declared duration. Trips without a return declaration within a
+configurable threshold period generate an alert for follow-up by NIS.
+
+\subsection{Technical Architecture}
+
+The NDTR operates as a central registry managed by the Nigeria
+Immigration Service, with the following technical layers:
+
+\begin{description}
+  \item[Identity Layer] NIN validation via the National Identity
+  Management Commission (NIMC) API, ensuring that each declarant is a
+  verified Nigerian citizen.
+
+  \item[Declaration Layer] Mobile/web/USSD interface for trip
+  declaration, generating a unique QR reference code per trip (similar
+  to the Philippines eTravel QR code), required for check-in at
+  Nigerian international airports.
+
+  \item[Analytics Layer] Aggregate compliance dashboards for NIS
+  policymakers, producing national-level statistics on travel purpose,
+  destination, duration, and return compliance rates.
+
+  \item[Security Layer] Anomaly detection module (detailed in
+  Section~\ref{sec:security}) that flags atypical patterns for
+  targeted review.
+
+  \item[Governance Layer] Data retention policies, audit trails, and
+  NDPC-compliant access control, ensuring that individual data is
+  not accessible without lawful basis.
+\end{description}
+
+\subsection{Privacy and Data Governance}
+
+Privacy by design is non-negotiable for NDTR legitimacy.
+The framework proposes the following safeguards:
+
+\begin{itemize}
+  \item Traveller-facing data transparency: citizens can view, contest,
+  and request deletion of their own records via a self-service portal.
+
+  \item No commercial data use: NDTR data may only be used for
+  immigration governance, national security, and bilateral treaty
+  purposes.
+
+  \item Tiered access: raw individual records accessible only to NIS
+  with judicial oversight; aggregated statistics accessible more broadly.
+
+  \item Bilateral data-sharing only under treaty: no unilateral data
+  transfer to foreign governments without explicit bilateral agreement
+  and NDPC approval.
+
+  \item Sunset provisions: individual trip records deleted after
+  10 years unless flagged by a security review.
+\end{itemize}
+
+%% ----------------------------------------------------------
+\section{Proactive Security Monitoring and Anomaly Detection}
+\label{sec:security}
+%% ----------------------------------------------------------
+
+A critical and underexplored dimension of digital travel registries
+is their capacity for \textit{proactive} rather than reactive security
+monitoring. Existing Nigerian border security practices are largely
+reactive: action is taken after an incident is reported by a foreign
+authority. The NDTR enables a fundamentally different operational mode.
+
+\subsection{Behavioural Baseline and Anomaly Detection}
+
+As the NDTR accumulates trip-level data, it builds a national
+behavioural baseline: the typical frequency, destination, duration,
+and purpose distribution for Nigerian international travel. Anomalies
+relative to this baseline---at either the individual or pattern
+level---become detectable without targeting any specific individual
+a priori.
+
+Examples of detectable anomaly classes include:
+
+\begin{description}
+  \item[Destination clustering] An unusual concentration of travellers
+  declaring the same destination city within a short window, with
+  no corresponding event (conference, festival, sporting event), may
+  indicate organised irregular migration activity.
+
+  \item[Purpose-duration mismatch] A traveller who declares a
+  2-day business trip to a country with no significant Nigerian
+  commercial presence presents a pattern worthy of secondary
+  review.
+
+  \item[Rapid repeat travel] Multiple short-duration trips to the
+  same destination within a 30-day window, particularly to known
+  transit hubs, may indicate courier activity.
+
+  \item[Non-return alerts] Travellers who do not submit a return
+  declaration within a threshold period beyond their declared
+  stay trigger an automated alert, allowing NIS to initiate
+  welfare or enforcement inquiries.
+
+  \item[High-risk corridor flagging] Declared travel to known
+  drug-transit or conflict-zone corridors can trigger additional
+  pre-departure checks in coordination with the National Drug Law
+  Enforcement Agency (NDLEA) and the Department of State Services
+  (DSS).
+\end{description}
+
+\subsection{Incident Prevention vs. Incident Response}
+
+The distinction between prevention and response is significant.
+Under current arrangements, Nigeria learns of an incident involving
+one of its citizens abroad---a drug arrest, an immigration
+violation, a security incident---through a foreign government
+notification, typically after the fact. The NDTR reframes this
+operationally: NIS has visibility of anomalous outbound travel
+patterns in real time, and can share relevant intelligence with
+partner agencies or destination-country counterparts before
+departure or upon arrival.
+
+This transforms the NDTR from a passive registry into an active
+component of Nigeria's national security infrastructure---an
+argument that is likely to be decisive in securing interagency
+buy-in from NIS, NDLEA, the DSS, and the Office of the
+National Security Adviser.
+
+\subsection{International Security Cooperation}
+
+The NDTR's security monitoring layer is designed to be interoperable
+with INTERPOL's I-24/7 communications network and the ICAO
+traveller identification programme, enabling Nigeria to share
+flagged travel intelligence with foreign partners on a
+reciprocal basis---a capability that currently does not exist
+at any meaningful scale~\cite{icao2023}.
+
+%% ----------------------------------------------------------
+\section{Diplomatic Applications of NDTR Data}
+\label{sec:diplomatic}
+%% ----------------------------------------------------------
+
+\subsection{Countering Visa Restrictions with Compliance Evidence}
+
+The primary diplomatic application of the NDTR is the generation
+of \textit{aggregate compliance evidence}---a national-level
+dataset demonstrating that the overwhelming majority of Nigerian
+travellers honour their declared purpose and return within the
+stated duration.
+
+With three to five years of NDTR data, the Nigerian Ministry of
+Foreign Affairs gains a qualitatively new instrument for bilateral
+visa negotiations. Instead of asserting Nigerian traveller compliance
+in the absence of evidence, it can table a dataset: in a given year,
+X million Nigerians travelled to Y destination; Z\% declared a
+purpose of business or education; W\% returned within their declared
+duration; anomaly-flagged cases represented P\% of total travel.
+This is the same type of argument that gave the Philippines leverage
+in its negotiations with Canada.
+
+The evidentiary standard required for reciprocal visa liberalisation
+varies by country. For ECOWAS and African Union free movement negotiations,
+aggregate compliance data is a strengthening factor.
+For Schengen negotiations, the European Union has published specific
+criteria for bilateral visa liberalisation dialogues that include
+data on irregular migration rates and document security---criteria
+for which NDTR data is directly relevant~\cite{euvisadialogue2023}.
+
+\subsection{Asylum Claim Integrity}
+
+As discussed in Section~\ref{sec:background}, the NDTR provides
+a mechanism for asylum claim integrity verification.
+Under a bilateral data-sharing arrangement with a destination country's
+immigration authority, that authority can (with the claimant's consent,
+or under mutual legal assistance treaty) request an individual's NDTR
+record. A claimant's history of regular, undisturbed international
+travel---particularly to countries with no relevant asylum context---is
+legally and logically relevant to the credibility of a persecution claim.
+
+The NDTR does not determine the outcome of an asylum claim.
+It provides verifiable, official Nigerian government data to
+an adjudication process that currently operates with incomplete
+information. This benefits genuine claimants (whose legitimate
+travel patterns do not undermine their case) and deters fraudulent
+ones (for whom a rich travel record creates an evidentiary problem).
+
+\subsection{Credit and Financial Obligation Compliance}
+
+A secondary application, identified through stakeholder consultation,
+is the potential integration of NDTR data with financial compliance
+monitoring. Nigerian citizens who travel internationally while
+leaving unresolved financial obligations---unpaid loans, tax
+arrears, outstanding court orders---represent a risk category
+for which cross-border visibility is currently near-zero.
+With NIN integration, the NDTR provides a technical basis (under
+appropriate legal framework) for coordinated notification between
+NIS, the Central Bank of Nigeria (CBN), and the relevant financial
+institutions---analogous to mechanisms that operate in several
+EU member states~\cite{cbn2023}. This application requires
+separate legislative authority and is flagged here as a
+second-phase consideration.
+
+%% ----------------------------------------------------------
+\section{Border Management Modernisation}
+\label{sec:border}
+%% ----------------------------------------------------------
+
+\subsection{Alignment with ICAO Standards}
+
+The International Civil Aviation Organization's traveller identification
+programme (TRIP) provides the international standards framework within
+which the NDTR must operate. ICAO Doc~9303 governs machine-readable
+travel documents, and ICAO's TRIP strategy promotes the linkage of
+identity management, pre-departure data sharing, and border control
+into a coherent national system~\cite{icao2023}. The NDTR is designed
+to be ICAO-compliant at the data layer, ensuring that Nigerian-generated
+travel data can be exchanged in ICAO-standard formats with partner
+state border agencies.
+
+\subsection{ECOWAS Free Movement and the African Union Protocol}
+
+The Economic Community of West African States (ECOWAS) Free Movement
+Protocol theoretically permits citizens of member states to travel
+freely within the region without a visa for up to 90 days.
+In practice, Nigerian travellers continue to face administrative
+barriers at land borders across the ECOWAS zone, and the protocol
+lacks a digital implementation layer.
+The NDTR provides a mechanism for Nigeria to lead the
+operationalisation of ECOWAS free movement through digital means:
+by demonstrating national-level compliance infrastructure,
+Nigeria can advocate for a common ECOWAS digital travel declaration
+standard modelled on the NDTR~\cite{ecowas2022}.
+
+At the continental level, the African Union's Free Movement
+of Persons Protocol, which is progressively entering into
+force, envisages a continental digital passport and identiy
+infrastructure. The NDTR, built on NIN, positions Nigeria's
+migration data infrastructure for interoperability with the
+AU's eventual continental digital governance architecture.
+
+\subsection{Modernising Nigerian Airport Operations}
+
+The operational integration of NDTR QR codes into the check-in
+and immigration clearance workflow at Nigerian international
+airports---beginning with Murtala Muhammed International Airport
+(Lagos), Nnamdi Azikiwe International Airport (Abuja), and
+Mallam Aminu Kano International Airport (Kano)---would provide
+the physical point-of-use infrastructure for the system.
+The QR-based check-in model is directly analogous to the
+Philippines eTravel QR code, which is presented at the immigration
+counter rather than requiring officer data entry, reducing
+queuing times and eliminating manual transcription errors.
+
+%% ----------------------------------------------------------
+\section{Implementation Roadmap}
+\label{sec:roadmap}
+%% ----------------------------------------------------------
+
+The NDTR is proposed as a phased implementation over 36 months,
+recognising the institutional complexity of interagency coordination
+in the Nigerian public sector.
+
+\subsection{Phase 1: Foundation (Months 1--12)}
+
+\begin{itemize}
+  \item Legislative basis: amendment to the Nigeria Immigration Act to
+  mandate digital travel declarations for outbound citizens.
+  \item Interagency governance structure: establish a cross-ministry
+  NDTR Steering Committee chaired by NITDA, with representation from
+  NIS, NIMC, NDPC, the Ministry of Foreign Affairs, and the NSA office.
+  \item Core NIN-NDTR integration: technical design and procurement for
+  the declaration platform, built on the existing NIMC NIN API.
+  \item Pilot deployment: Lagos (MMIA) outbound terminal for a
+  6-month voluntary registration pilot, generating baseline data
+  and UX feedback.
+\end{itemize}
+
+\subsection{Phase 2: Rollout (Months 13--24)}
+
+\begin{itemize}
+  \item Mandatory declaration enforcement at all five international
+  airports (Lagos, Abuja, Kano, Port Harcourt, Enugu).
+  \item Anomaly detection module deployment on the analytics layer.
+  \item First annual compliance report: NDTR publishes aggregated
+  national travel statistics for the preceding 12-month period.
+  \item Initial bilateral engagement: Nigeria tables NDTR data in
+  visa dialogue with at least two partner states (proposed: UK and
+  Netherlands as Schengen representative).
+\end{itemize}
+
+\subsection{Phase 3: Diplomatic Operationalisation (Months 25--36)}
+
+\begin{itemize}
+  \item Land border integration: extend NDTR declaration requirement
+  to major land border crossings (beginning with the Seme and
+  Idiroko crossings on the Lagos axis).
+  \item ECOWAS pilot: propose a common ECOWAS digital travel
+  declaration standard based on NDTR architecture.
+  \item Bilateral data-sharing agreements: conclude formal MoUs
+  with at least three destination countries for reciprocal
+  compliance data exchange.
+  \item Asylum integrity protocol: activate the bilateral asylum
+  claim verification mechanism with Ireland and the United Kingdom
+  under the mutual legal assistance framework.
+\end{itemize}
+
+\subsection{Key Stakeholders and Roles}
+
+\begin{table}[ht]
+\caption{NDTR Stakeholder Roles}
+\label{tab:stakeholders}
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Agency} & \textbf{Role} \\
+\midrule
+NITDA           & Technical lead; platform development and oversight \\
+NIS             & Operational lead; border enforcement integration \\
+NIMC            & NIN API and identity verification \\
+NDPC            & Data governance, privacy compliance, audit \\
+Min. Foreign Affairs & Bilateral diplomatic deployment of NDTR data \\
+NDLEA / DSS     & Security anomaly review and inter-agency alerts \\
+CBN             & Phase 2: financial obligation integration \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%% ----------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+%% ----------------------------------------------------------
+
+The NDTR framework addresses a governance gap that is simultaneously
+technical, diplomatic, and philosophical. Technically, it fills the
+absence of a national behavioural travel database.
+Diplomatically, it converts that database into bilateral leverage.
+Philosophically, it reframes the terms of Nigeria's engagement with
+the global migration system---from a reactive posture of defending
+Nigerian citizens against collective stigma, to a proactive one
+of demonstrating, through evidence, why that stigma is statistically
+unjustified.
+
+There are legitimate concerns to address. First, the risk of
+government surveillance overreach: a mandatory travel registry,
+if misused, could become an instrument of political control over
+citizens' freedom of movement. The data governance framework
+proposed in Section~\ref{sec:framework} is designed precisely
+to prevent this, and the NDPC's independence is a critical
+institutional safeguard.
+
+Second, the risk of exclusion: Nigerians without smartphones
+or reliable internet access---a non-trivial proportion of
+the travel-eligible population, particularly for land border
+crossings---must not be systemically excluded.
+The USSD channel and airport kiosk options are essential, not optional.
+
+Third, the risk of data breach: a centralised national travel
+registry is a high-value target. The security architecture
+must treat breach prevention as a first-order design requirement,
+not an afterthought.
+
+These concerns are manageable and do not negate the fundamental
+case for the NDTR. They do require that the implementation
+be designed with civil society oversight, independent audit,
+and a clear legislative mandate rather than administrative decree.
+
+%% ----------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+%% ----------------------------------------------------------
+
+This paper has presented the Nigerian Digital Travel Registry (NDTR)
+as a policy instrument that addresses four interconnected governance
+deficits: the inability to demonstrate traveller compliance to
+foreign governments; the absence of proactive security monitoring
+for atypical outbound travel patterns; the lack of verifiable data
+for Nigeria's bilateral visa negotiations; and the gap between
+Nigerian border management practices and international digital
+governance standards.
+
+The Philippines eTravel system demonstrates that a digital travel
+declaration framework, implemented at scale, can genuinely shift
+a country's position in the global migration system.
+Nigeria has the demographic scale, the NIN identity infrastructure,
+the technical talent embedded in NITDA, and the political impetus---
+through the Ministry of Communications and Digital Economy's
+broader digital transformation agenda---to replicate and exceed
+that model.
+
+The NDTR is not a solution to all of Nigeria's passport restrictions.
+Geopolitical factors, trade relationships, and historical migration
+patterns all play a role in bilateral visa policy.
+But it addresses the one factor that Nigerian governance can
+directly control: the availability of credible, government-generated
+data about the travel behaviour of its own citizens.
+In the absence of such data, Nigeria will continue to negotiate
+with one hand tied behind its back.
+The NDTR is the instrument that removes that constraint.
+
+\paragraph{Acknowledgements.}
+The author acknowledges the initial reception of this proposal
+by the National Information Technology Development Agency
+(NITDA), whose engagement in January 2026 encouraged the
+development of this academic elaboration of the NDTR concept.
+
+%% ----------------------------------------------------------
+%%  REFERENCES
+%% ----------------------------------------------------------
+
+\bibliographystyle{unsrt}
+
+\begin{thebibliography}{99}
+
+\bibitem{henley2025}
+Henley \& Partners.
+\newblock \textit{Henley Passport Index 2025}.
+\newblock Henley \& Partners, 2025.
+\newblock \url{https://www.henleyglobal.com/passport-index}
+
+\bibitem{iom2023}
+International Organization for Migration (IOM).
+\newblock \textit{World Migration Report 2024}.
+\newblock IOM, Geneva, 2023.
+
+\bibitem{unodc2022}
+United Nations Office on Drugs and Crime (UNODC).
+\newblock \textit{Global Report on Trafficking in Persons 2022}.
+\newblock UNODC, Vienna, 2022.
+
+\bibitem{castles2013}
+Stephen Castles, Hein De Haas, and Mark J. Miller.
+\newblock \textit{The Age of Migration: International Population Movements
+in the Modern World}, 5th ed.
+\newblock Palgrave Macmillan, 2013.
+
+\bibitem{kahneman2011}
+Daniel Kahneman.
+\newblock \textit{Thinking, Fast and Slow}.
+\newblock Farrar, Straus and Giroux, 2011.
+
+\bibitem{eurostat2024}
+Eurostat.
+\newblock \textit{Asylum and Managed Migration Statistics 2023}.
+\newblock European Commission, 2024.
+\newblock \url{https://ec.europa.eu/eurostat/statistics-explained/index.php/Asylum_statistics}
+
+\bibitem{irishnat2023}
+International Protection Appeals Tribunal (Ireland).
+\newblock \textit{Annual Report 2023}.
+\newblock Department of Justice, Ireland, 2023.
+
+\bibitem{philippinesetravel2022}
+Department of Information and Communications Technology (DICT), Philippines.
+\newblock \textit{eTravel System: Technical and Operational Overview}.
+\newblock DICT, Quezon City, 2022.
+\newblock \url{https://etravel.gov.ph}
+
+\bibitem{canada2024ph}
+Immigration, Refugees and Citizenship Canada (IRCC).
+\newblock \textit{Visa-Free Travel for Philippine Passport Holders}, 2024.
+\newblock \url{https://www.canada.ca}
+
+\bibitem{euvisadialogue2023}
+European Commission.
+\newblock \textit{Visa Liberalisation Action Plans: Monitoring and Evaluation
+Framework}.
+\newblock Directorate-General for Migration and Home Affairs, Brussels, 2023.
+
+\bibitem{cbn2023}
+Central Bank of Nigeria (CBN).
+\newblock \textit{Framework for Cross-Border Financial Intelligence Sharing}.
+\newblock CBN, Abuja, 2023.
+
+\bibitem{icao2023}
+International Civil Aviation Organization (ICAO).
+\newblock \textit{ICAO Traveller Identification Programme (TRIP) Strategy:
+Third Edition}.
+\newblock ICAO, Montreal, 2023.
+\newblock Doc 9303.
+
+\bibitem{ecowas2022}
+Economic Community of West African States (ECOWAS).
+\newblock \textit{Protocol A/P.1/5/79 on Free Movement of Persons:
+2022 Progress Report}.
+\newblock ECOWAS Commission, Abuja, 2022.
+
+\end{thebibliography}
+
+\end{document}

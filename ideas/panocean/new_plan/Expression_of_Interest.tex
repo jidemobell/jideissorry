@@ -1,0 +1,302 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper, margin=0.75in]{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tgheros}
+\usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+
+%% ===== Colour palette =====
+\definecolor{primary}{RGB}{15,52,96}
+\definecolor{accent}{RGB}{198,124,0}
+\definecolor{lightgrey}{gray}{0.88}
+\definecolor{darkgrey}{gray}{0.38}
+
+%% ===== Section style =====
+\titleformat{\section}{%
+  \color{primary}\bfseries\large\raggedright
+}{}{0em}{}[\color{lightgrey}{\titlerule[1.5pt]}\vspace{-4pt}]
+
+\titlespacing*{\section}{0pt}{16pt}{6pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\renewcommand{\arraystretch}{1.25}
+\hypersetup{colorlinks=true, urlcolor=primary}
+
+\newcommand{\spacer}{\vspace{10pt}}
+\newcommand{\bigspacer}{\vspace{16pt}}
+
+%% =====================================================
+\begin{document}
+
+%% ----- Sender block -----
+\begin{flushright}
+  {\small
+  \textbf{Olajide Olaniyan}\\
+  CEng Software Engineer, IBM\\
+  Dublin, Ireland\\[2pt]
+  +353 89 982 7429\\
+  \href{mailto:jidemobell@gmail.com}{jidemobell@gmail.com}\\
+  \href{https://linkedin.com/in/olajide-olaniyan}{linkedin.com/in/olajide-olaniyan}\\[4pt]
+  {\color{darkgrey}May 2026}
+  }
+\end{flushright}
+
+\spacer
+
+%% ----- Recipient block -----
+{\small
+\textbf{[Colleague's Name]}\\
+Newcross and Pan Ocean Group of Companies\\
+Lagos, Nigeria
+}
+
+\bigspacer
+
+%% ----- Subject -----
+\begin{center}
+  {\color{primary}\large\bfseries Expression of Interest ---
+  Digital Transformation Conversation}
+\end{center}
+
+\spacer
+
+Dear [Colleague's Name],
+
+Thank you for reaching out about the group's plans around digital
+transformation. As someone who spent eleven years building and leading Pan
+Ocean's IT infrastructure from the ground up, this is not a conversation
+I could approach lightly.
+
+Since leaving in 2021 I have deliberately shaped my career to bridge the
+gap between enterprise oil and gas operations and modern software
+engineering. My M.Sc.\ in Big Data Analytics and Artificial Intelligence
+from Atlantic Technological University (Ireland), combined with my current
+role as a CEng Software Engineer at IBM working on Cloud Pak for AIOps ---
+event-driven, AI-powered operations on Kubernetes --- has given me the
+toolkit this kind of programme calls for.
+
+I want to be honest about what I am offering. I do not assume to know what
+is already in motion inside the group. RADA-AMS, infrastructure
+modernisation, and other internal initiatives almost certainly have
+momentum I cannot see from outside. What I am offering is a perspective
+paper, an external view of where the industry sits in 2026, and the
+relationships and execution capacity to add to what is already being done.
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{What I Bring}
+%% ----------------------------------------------------------
+
+\noindent\colorbox{primary!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{6pt}
+  \textbf{\color{primary}The Dual Lens.}\quad
+  I left Pan Ocean to gain skills Nigeria couldn't give me yet. I now have
+  them. I am returning with a clear intention: to help build the future of a
+  group whose foundation I helped lay.
+  \vspace{6pt}
+\end{minipage}}
+
+\spacer
+
+\small
+\begin{tabularx}{\columnwidth}{@{}XX@{}}
+\toprule
+\textbf{Inside the Group (2010--2021)} & \textbf{Since the Group (2021--2026)} \\
+\midrule
+Built Pan Ocean's data centre and WAN infrastructure spanning Lagos HQ,
+Ogharefe (OML-98), Owa Aladinma (OML-147), and OOGP field sites
+  & CEng Software Engineer at IBM --- Cloud Pak for AIOps:
+    AI-powered operations using Java microservices, Kafka, and distributed
+    systems on Kubernetes/OpenShift \\
+Led migration to Microsoft Azure hybrid cloud
+  & M.Sc.\ Big Data Analytics and Artificial Intelligence,
+    Atlantic Technological University, Ireland \\
+Managed 500+ users across offshore and onshore operations; final escalation
+point for the group's most complex technical issues
+  & Founding Engineer at Klem AI: product from concept to App Store launch
+    (Python, React Native, TensorFlow) \\
+Implemented Nagios monitoring infrastructure: 40\% cost reduction across
+multi-site operations
+  & Associate Operations Engineer, Activision Blizzard: 99.9\%+
+    availability at enterprise scale \\
+Established security, firewall, and disaster recovery protocols for pipeline
+and gas plant infrastructure
+  & AI knowledge systems, RAG architecture, Python / LLM integration,
+    Kubernetes, Kafka \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\spacer
+I know Pan Ocean's infrastructure, culture, and operational challenges from
+the inside. I know where the friction lives in the business because I lived
+it. At IBM I work on the systems that replace that friction with intelligence.
+I speak both languages.
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{Why This Conversation, Why Now}
+%% ----------------------------------------------------------
+
+Several factors have converged that make digital capability investment more
+pressing than at any point in the group's history:
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Factor} & \textbf{Why It Matters Now} \\
+\midrule
+RADA-AMS (October 2025)
+  & The group publicly committed to energy and innovation leadership. That
+    commitment needs an execution engine. \\
+NUPRC April 2026 GHG Directive
+  & Measurement-based methane reporting is now mandatory. OOGP is directly
+    in scope. Manual compliance is not operationally sustainable at scale. \\
+PIA 2021 HCDT Obligations
+  & 3\% of opex per entity must be tracked, reported, and audited. Across
+    three entities, a significant compliance burden if done manually. \\
+Three-Entity Group Structure
+  & Pan Ocean, Newcross Petroleum, and Newcross Exploration and Production
+    operating with shared infrastructure and separate legal reporting is a
+    digital integration problem of real complexity. \\
+OML-147 PSC Live Reporting
+  & Active PSC obligations to NNPC require continuous and accurate
+    production and cost recovery data. \\
+Fifty Years of OML-98 Operational Data
+  & Sitting largely inaccessible. Document intelligence and data engineering
+    can unlock it before another decade passes. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{What I Have Prepared}
+%% ----------------------------------------------------------
+
+Attached to this letter are two papers I have prepared in advance of any
+conversation:
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Document} & \textbf{Contents} \\
+\midrule
+\textit{Digital Transformation --- A Perspective Paper}
+  & An external industry view of digital transformation in oil and gas in
+    2026, framed around eight capability themes (connected operations,
+    industrial AI, data fabric, ESG digitisation, workforce digitisation,
+    OT security, generative AI for institutional memory, hybrid cloud and
+    edge). Adapted to the group's specific context, the Nigerian regulatory
+    environment, and the realities of operating at OOGP, OML-98, OML-147,
+    and along the AEPP corridor. \\
+\textit{AI and Data Roadmap}
+  & A concrete, asset-specific catalogue of AI and data engineering
+    initiatives, organised by data and infrastructure readiness rather than
+    by calendar dates. Every initiative is grounded in actual group assets
+    and Nigerian operational constraints. No research projects.
+    No Silicon Valley assumptions. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\spacer
+These are discussion papers. They are not a delivery plan and do not assume
+visibility of work already in flight. The best outcome of sharing them is
+a conversation where I can hear what leadership is actually prioritising
+and refine the thinking accordingly.
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{How I Am Thinking About Engagement}
+%% ----------------------------------------------------------
+
+I am open to whatever engagement structure makes sense given the group's
+existing plans and team:
+
+\spacer
+\small
+\begin{itemize}[leftmargin=1.8em, itemsep=4pt]
+  \item A \textbf{technical leadership role} --- architecture, standards,
+        team-building, and strategic direction alongside delivery, if the
+        group is establishing a new function
+  \item A \textbf{consulting arrangement} --- structured around specific
+        capability areas, working alongside an existing team
+  \item An \textbf{advisory engagement} --- contributing perspective,
+        architecture review, and external industry context to ongoing work
+  \item A \textbf{transitional structure} --- beginning on a defined scope,
+        with mutual flexibility to expand as the work and the team take shape
+\end{itemize}
+\normalsize
+
+\spacer
+I will have my Irish Stamp 4 immigration status by mid-2026, which gives me
+full flexibility to work formally with additional companies. Any remuneration
+would be structured to a Nigerian account.
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{Questions Worth Discussing}
+%% ----------------------------------------------------------
+
+When we speak, these are the things most worth clarifying first --- and what
+I would most want to learn from leadership:
+
+\spacer
+\small
+\begin{enumerate}[leftmargin=1.8em, itemsep=4pt]
+  \item What are the \textbf{top two or three business problems} the group
+        most wants visibly solved over the next year?
+  \item What is \textbf{already in motion} that I should understand before
+        proposing anything --- inside RADA-AMS, infrastructure modernisation,
+        or other initiatives?
+  \item What is the \textbf{governance and reporting structure} for digital
+        capability work across the three entities?
+  \item Where is the \textbf{commercialisation conversation} today --- is
+        external productisation on the table or strictly internal for now?
+  \item What is the \textbf{hiring posture} --- internal only, or open to
+        diaspora engineers and external technical hires?
+  \item What does \textbf{success look like} at twelve months? At thirty-six?
+\end{enumerate}
+\normalsize
+
+\spacer
+I would welcome a conversation with you and the relevant stakeholders. The
+two papers give the substance; the conversation is where I can listen and
+adapt to what the group is actually building.
+
+\bigspacer
+
+Warm regards,
+
+\vspace{18pt}
+
+\textbf{Olajide Olaniyan}\\
+{\small CEng Software Engineer, IBM}\\
+{\small +353 89 982 7429\quad|\quad
+\href{mailto:jidemobell@gmail.com}{jidemobell@gmail.com}\quad|\quad
+\href{https://linkedin.com/in/olajide-olaniyan}{linkedin.com/in/olajide-olaniyan}}
+
+\spacer
+{\small\color{darkgrey}
+\textit{Attachments: Digital Transformation --- A Perspective Paper (May 2026)
+$\cdot$ AI and Data Roadmap (May 2026) $\cdot$ CV}
+}
+
+\end{document}

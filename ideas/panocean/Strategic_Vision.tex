@@ -1,0 +1,733 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper, margin=0.72in]{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tgheros}
+\usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes.rounded, arrows.meta, positioning}
+\renewcommand{\familydefault}{\sfdefault}
+
+%% Colour palette
+\definecolor{primary}{RGB}{15,52,96}        %% Deep petroleum navy
+\definecolor{accent}{RGB}{198,124,0}        %% Oil amber
+\definecolor{lightgrey}{gray}{0.85}
+\definecolor{darkgrey}{gray}{0.38}
+
+%% Section style
+\titleformat{\section}{%
+  \color{primary}\bfseries\large\raggedright
+}{}{0em}{}[\color{lightgrey}{\titlerule[1.5pt]}\vspace{-5pt}]
+
+\titleformat{\subsection}{%
+  \color{accent}\bfseries\normalsize\raggedright
+}{}{0em}{}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\hypersetup{colorlinks=true, urlcolor=primary}
+
+%% =====================================================
+\begin{document}
+
+%% ----- Title block -----
+\begin{center}
+  \vspace*{0.15cm}
+  {\color{primary}\LARGE\bfseries NEWCROSS AND PAN OCEAN GROUP}\\[5pt]
+  {\color{primary}\large\bfseries Digital Transformation --- A Strategic Vision}\\[10pt]
+  {\color{darkgrey}\normalsize Version 1.0\quad\textbar\quad April 2026\quad\textbar\quad
+   Discussion Paper --- For Internal Circulation}
+\end{center}
+
+\noindent\colorbox{primary!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{5pt}
+  \textbf{\color{primary}Thesis.}\quad
+  The Newcross and Pan Ocean Group of Companies already holds the most valuable
+  asset in any software business: fifty years of operational data, deep domain expertise,
+  and a credibility inside the Nigerian oil and gas industry that no foreign vendor can
+  replicate. Digital transformation converts that asset into competitive advantage ---
+  first internally, then commercially. The question is not whether to transform.
+  The RADA-AMS initiative has already answered that. The question is how to execute
+  with discipline, in the right sequence, grounded in Nigerian operational reality.
+  \vspace{5pt}
+\end{minipage}}
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{The Group of Companies}
+%% ----------------------------------------------------------
+
+The Newcross and Pan Ocean Group of Companies comprises three distinct legal entities
+operating with partly shared infrastructure, shared senior leadership, and
+complementary asset portfolios across the Nigerian upstream oil and gas sector.
+
+\vspace{4pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lXl@{}}
+\toprule
+\textbf{Entity} & \textbf{Primary Role} & \textbf{Incorporated} \\
+\midrule
+Pan Ocean Oil Corporation (Nigeria) Ltd
+  & Exploration, production, gas processing, and pipeline infrastructure.
+    First indigenous company in JV with NNPC; OML-98 producing since 1976.
+  & 1973 \\[4pt]
+Newcross Petroleum Limited
+  & Upstream E\&P operations; corporate strategy and finance.
+  & --- \\[4pt]
+Newcross Exploration and Production Limited
+  & Dedicated exploration and drilling operations, including rig assets
+    acquired during the Jonathan-era licensing round.
+  & --- \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{4pt}
+{\small\color{darkgrey}
+\textbf{Leadership.}\enspace
+Steven Fadeyi serves as Group Managing Director across all three entities.
+Dr.\ Jason Fadeyi has focused on business strategy and finance across the group.
+Digital systems designed for this group must support multi-entity operation from
+day one --- not as a retrofit. The group is the customer, not any single entity.
+}
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{The Operational Portfolio}
+%% ----------------------------------------------------------
+
+\small
+\begin{tabularx}{\columnwidth}{@{}lXl@{}}
+\toprule
+\textbf{Asset} & \textbf{Description} & \textbf{Status} \\
+\midrule
+OML-98 (Ogharefe field)
+  & Original producing block; onshore northern Niger Delta. Operations commenced
+    August 1976. Gas utilisation initiative running since 1984.
+  & Producing \\[4pt]
+OML-147 (Northern Niger Delta)
+  & Acquired as OPL-275 in 2007; Production Sharing Contract (PSC) with NNPC
+    signed 2009; converted to OML in 2015 following successful exploration work
+    programme. Early Production Facility (EPF) at Owa Aladinma: 20,000 bopd +
+    70 MMscf/d, 3-phase modularised design.
+  & Producing \\[4pt]
+Ovade-Ogharefe Gas Plant (OOGP)
+  & Gas processing plant; cryogenic LPG facility with 29 storage tanks.
+    Cornerstone of West Africa's largest carbon-emission reduction project.
+    Phase 2 cryogenic expansion completed 2022.
+  & Operating \\[4pt]
+Amukpe-Escravos Pipeline (AEPP)
+  & 20-inch, 67 km, 160,000 bopd capacity. Built using Continuous Horizontal
+    Directional Drilling (CHDD) anti-vandalism technology. Shared-use tariff
+    arrangement with neighbouring producers.
+  & Operating \\[4pt]
+Rig Assets (Newcross E\&P)
+  & Drilling rig(s) acquired during Jonathan-era licensing round, held under
+    Newcross Exploration and Production Limited.
+  & Active \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{4pt}
+{\small\color{darkgrey}
+\textbf{NNPC relationship.}\enspace
+OML-98 was established under an original JV arrangement with NNPC --- that
+structure has evolved significantly over the years. OML-147 operates under a live
+PSC signed with NNPC in 2009; PSC reporting obligations on OML-147 remain active
+and are a direct driver of digital reporting requirements.
+}
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{The Nigerian Oil and Gas Context}
+%% ----------------------------------------------------------
+
+{\small
+Any serious transformation programme must be grounded in the regulatory and market
+environment the group actually operates in. Several recent shifts raise the urgency.
+}
+
+\vspace{4pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Factor} & \textbf{Implication for the Group} \\
+\midrule
+Petroleum Industry Act 2021 (PIA)
+  & Restructured fiscal regime; new royalty and tax framework; Host Community
+    Development Trust (HCDT) obligation of 3\% of opex per entity. Tracking and
+    reporting HCDT is a legal requirement, not optional. \\[4pt]
+NUPRC Regulatory Framework
+  & Successor to DPR; expanded mandate, increased reporting cadence and data
+    granularity. April 2026: fresh directive mandating standardised templates for
+    \textbf{measurement-based methane and GHG reporting} --- OOGP is directly in scope. \\[4pt]
+Nigerian Gas Flare Commercialisation Programme (NGFCP)
+  & Pan Ocean's gas-flare leadership since 1984 is a credibility asset. Digital
+    measurement and reporting of flare volumes is now an active compliance requirement. \\[4pt]
+Nigerian Content Act (NCA)
+  & Local spend, employment, and training tracking across all three entities and
+    both producing blocks. Audit risk is increasing. Currently manual throughout. \\[4pt]
+OML-147 PSC Reporting
+  & Production, cost recovery, and fiscal data submitted to NNPC under PSC
+    terms. Manually generated today from disparate sources. \\[4pt]
+Dangote Refinery Effect
+  & Domestic crude market dynamics are shifting for the first time in decades.
+    Oil marketing, lifting decisions, and buyer allocation now operate in a
+    fundamentally different environment. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{What Digital Transformation Means Here}
+%% ----------------------------------------------------------
+
+Digital transformation is not a technology project. It is the systematic replacement
+of human effort and paper with connected systems --- so that data runs the business
+instead of people chasing information. It has three stages, and they must happen in
+sequence.
+
+\vspace{4pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lXX@{}}
+\toprule
+\textbf{Stage} & \textbf{Definition} & \textbf{Group Reality Today} \\
+\midrule
+1.\ Digitisation
+  & Capture data that exists on paper, in spreadsheets, or in people's heads.
+  & 50 years of OML-98 well logs; paper-based HSE records; manual procurement
+    tracking across three entities. \\[4pt]
+2.\ Digitalisation
+  & Connect systems so data flows automatically between them.
+  & SAP, SCADA, gas plant instrumentation, and pipeline metering operate in silos.
+    Humans extract and transfer data between them manually. \\[4pt]
+3.\ Transformation
+  & Use connected data to change how decisions are made and how value is created.
+  & Real-time cross-entity production visibility; AI-driven predictive maintenance;
+    automated regulatory submission. This is the destination. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{4pt}
+\noindent\colorbox{primary!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{5pt}
+  \textbf{\color{primary}Where the Group Stands.}\quad
+  Stages 1 and 2 are partially complete --- Azure hybrid cloud, SAP, and SharePoint
+  are in place. The infrastructure foundation exists. What is missing is the
+  integration layer, the data pipelines, and the intelligence layer on top.
+  The group is closer to transformation than most Nigerian indigenous operators.
+  That is the strategic advantage to accelerate --- not the starting point to rebuild.
+  \vspace{5pt}
+\end{minipage}}
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{The Operational Complexity That Demands Change}
+%% ----------------------------------------------------------
+
+{\small
+The group operates across multiple entities, two producing blocks, a 200 MMscf/d-class
+gas plant, a 67 km pipeline, and at least five distinct regulatory reporting frameworks
+simultaneously. This complexity is the primary source of digital transformation ROI.
+}
+
+\vspace{4pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Business Function} & \textbf{Current Pain and Opportunity} \\
+\midrule
+Exploration \& Production
+  & Multi-block production data (OML-98 + OML-147) managed across separate
+    systems; no unified real-time view; well performance managed manually. \\[4pt]
+Gas Plant Operations (OOGP)
+  & Cryogenic equipment and LPG storage monitoring is reactive rather than
+    predictive. Flare monitoring and GHG reporting is now a live NUPRC
+    obligation (April 2026 directive). OOGP with 29 LPG storage tanks is the
+    group's highest-consequence asset for unplanned downtime. \\[4pt]
+Pipeline Management (AEPP)
+  & 67 km corridor through the Niger Delta. Third-party injector metering and
+    tariff reconciliation is paper-intensive. Crude theft and encroachment
+    detection is reactive. Metering accuracy is a direct revenue issue. \\[4pt]
+Oil Marketing
+  & Crude lifting schedules, buyer allocation, and PSC equity crude
+    reconciliation managed manually. The Dangote refinery's entry into the
+    domestic market is adding complexity to a system that was already stretched. \\[4pt]
+Finance \& Accounting
+  & Multi-currency exposure (Naira + USD); intercompany transactions across
+    three entities; NNPC PSC cost recovery accounting; annual budget cycle ---
+    all heavily manual with significant reconciliation overhead. \\[4pt]
+Regulatory Reporting
+  & NUPRC oil and gas returns; PSC reporting to NNPC; HCDT contribution
+    tracking; Nigerian Content reports; GHG/methane reporting (fresh April 2026
+    directive) --- all generated manually from disparate sources. \\[4pt]
+Health, Safety \& Environment (HSE)
+  & Permit-to-work systems paper-based. Incident reporting and near-miss
+    tracking manual. OOGP is a high-consequence HSE environment by any
+    definition (cryogenic processing; LPG storage). \\[4pt]
+HR \& Nigerian Content
+  & Staff rotation scheduling, training compliance, and local spend
+    classification for NCA reporting --- manual across three entities and
+    multiple operational sites. \\[4pt]
+Procurement \& Supply Chain
+  & Remote field operations with significant lead times; FX exposure on
+    imported parts; emergency procurement at premium cost; vendor performance
+    not systematically tracked. \\[4pt]
+IT and Communications Infrastructure
+  & LAN, WAN, voice, and remote rig data communications link Lagos HQ,
+    Ogharefe, Owa Aladinma, and rig sites. These links are not a background IT
+    matter --- they are the physical foundation for every data initiative the
+    group will pursue. A degraded WAN link to Ogharefe silences SCADA feeds and
+    creates operational blind spots. VSAT links to remote rig sites carry
+    WITSML drilling parameter data; a failed link means decisions are made on
+    stale information. Connectivity health must be assessed and remediated as a
+    prerequisite of the transformation programme. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{The Two-Track Approach}
+%% ----------------------------------------------------------
+
+\noindent\colorbox{primary!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{5pt}
+  \textbf{\color{primary}Core Principle.}\quad
+  Build once for the group. Design for the industry from day one. Every internal
+  solution should be built with configurability, clean APIs, and multi-entity
+  support from the outset --- not retrofitted for broader use after the fact.
+  This is the discipline that separates a bespoke IT project from a product.
+  \vspace{5pt}
+\end{minipage}}
+
+\vspace{6pt}
+
+\small
+\begin{tabularx}{\columnwidth}{@{}lXl@{}}
+\toprule
+\textbf{Track} & \textbf{Purpose} & \textbf{Horizon} \\
+\midrule
+Track A --- Internal Transformation
+  & Efficiency, automation, and AI-driven operations across all group entities.
+    Build the platform, prove the value, generate the data.
+  & Months 0--24 \\[4pt]
+Track B --- Commercialisation
+  & Package successful internal solutions as configurable products for the
+    Nigerian oil and gas market. The group's first paying customer is itself.
+    The group's 50-year operating history is the most powerful reference site
+    in Nigeria.
+  & Months 12--36 \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{Track A: Phase Roadmap}
+%% ----------------------------------------------------------
+
+\subsection*{Phase 1 --- Quick Wins (Months 0--6)}
+
+{\small
+Focus on high-visibility, lower-complexity improvements that establish data
+pipelines and generate internal credibility before AI is introduced.}
+
+\vspace{4pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lXl@{}}
+\toprule
+\textbf{Initiative} & \textbf{What It Does} & \textbf{Primary Value} \\
+\midrule
+Communications and Connectivity Audit
+  & Assess WAN, LAN, VSAT, and rig data link capacity, reliability, and
+    redundancy across all sites (Lagos HQ, Ogharefe, Owa Aladinma, rig sites).
+    Identify gaps that would prevent data pipeline operation. Runs in parallel
+    with the data audit --- not after it.
+  & Infrastructure prerequisite; prevents data blind spots \\[3pt]
+AEPP Tariff Reconciliation System
+  & Automate metering, injection tracking, and tariff billing for third-party
+    injectors on the Amukpe-Escravos Pipeline.
+  & Revenue assurance; removes manual reconciliation errors \\[3pt]
+Regulatory Reporting Automation
+  & Auto-generate NUPRC oil and gas returns from SAP + operational data for
+    OML-98 and OML-147, including new measurement-based GHG/methane templates
+    (NUPRC April 2026 directive).
+  & Legal compliance; hours $\to$ minutes per submission \\[3pt]
+HCDT Contribution Tracker
+  & Track and report Host Community Development Trust obligations (3\% of
+    opex under PIA 2021) across all three group entities with full audit trail.
+  & Legal compliance; audit readiness \\[3pt]
+HSE Digital Permit-to-Work
+  & Replace paper-based permit-to-work system. Critical priority at OOGP
+    given cryogenic operations and LPG storage environment.
+  & Safety compliance; liability reduction \\[3pt]
+Unified Operations Dashboard (MVP)
+  & Single real-time view of OML-98, OML-147, OOGP, and AEPP production
+    and status across all entities.
+  & Faster management decisions; cross-entity visibility \\[3pt]
+Workflow Automation
+  & Digitise departmental approval flows currently running through email
+    and SharePoint across all three entities.
+  & Cycle time reduction; audit trail \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{8pt}
+\subsection*{Phase 2 --- AI-Driven Operations (Months 6--18)}
+
+{\small
+Build on Phase 1 data and internal credibility to introduce machine learning
+where the data and infrastructure are now ready.}
+
+\vspace{4pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Initiative} & \textbf{Description} \\
+\midrule
+Predictive Maintenance --- OOGP (Highest Priority Asset)
+  & Instrument compressors, cryogenic processing units, and LPG storage tanks with
+    vibration, temperature, and pressure sensors. Train time-series anomaly detection
+    models on sensor readings and SAP maintenance history. Output: failure probability
+    scores, recommended maintenance windows, escalation alerts. One avoided plant
+    shutdown justifies the full investment. \\[4pt]
+AEPP Pipeline Security Intelligence
+  & Flow anomaly detection across all injection and delivery points --- flag pressure
+    drops and flow irregularities indicative of theft taps or structural issues.
+    Satellite imagery change detection along 67 km Right of Way corridor. GPS-
+    coordinated alert system for field response teams. \\[4pt]
+Oil Marketing Intelligence
+  & Lifting schedule management, buyer allocation tracking, and PSC equity crude
+    reconciliation with NNPC. Market pricing dashboard calibrated for the evolving
+    domestic crude landscape post-Dangote. \\[4pt]
+Nigerian Content \& HR Compliance Tracker
+  & Classify spend and employment by NCA category automatically across all three
+    entities. Auto-generate NCA and HCDT reports. Flag compliance gaps ahead of
+    audit cycles. \\[4pt]
+OML-147 PSC Cost Recovery Automation
+  & Automate data extraction, calculation, and formatting for NNPC PSC cost
+    recovery submissions. Replaces multi-day manual process with an auditable
+    pipeline. \\[4pt]
+GHG Monitoring Pipeline --- OOGP
+  & Sensor-to-report pipeline specifically for the new NUPRC measurement-based
+    methane and GHG reporting requirement. Continuous monitoring; auto-generation
+    of standardised NUPRC templates. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{8pt}
+\subsection*{Phase 3 --- Foundation for Scale (Months 12--24)}
+
+\small
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Cloud-native architecture standards established for all new development across the group
+  \item API-first design so internal systems can be repackaged as configurable external products
+  \item Data lake consolidating operational, financial, and compliance data across all three entities
+  \item Security and access control framework appropriate for multi-entity, future multi-tenant operation
+  \item Document Intelligence: OCR and semantic search across 50 years of OML-98 well logs,
+        drilling reports, and geological surveys --- unlock the group's institutional memory
+  \item OML-147 production optimisation (data collection phase completes; ML modelling begins)
+\end{itemize}
+\normalsize
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{Track B: Commercialisation}
+%% ----------------------------------------------------------
+
+{\small
+The primary market is the Nigerian oil and gas ecosystem. Every product below is
+built first for the group's own operations. The group's 50-year operating history
+and cross-entity reference deployment is the most powerful sales tool any software
+vendor in this market could hold.
+}
+
+\vspace{4pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lXl@{}}
+\toprule
+\textbf{Product} & \textbf{Problem Solved} & \textbf{Commercial Rationale} \\
+\midrule
+\textbf{RegulatoryReport}
+  & Auto-generation of NUPRC/DPR statutory returns, including measurement-based
+    GHG/methane templates and OML-147 PSC data submissions.
+  & Mandatory for every operator; frequency and complexity are increasing \\[4pt]
+\textbf{NigerianContent.ai}
+  & NCA and HCDT compliance tracking, calculation, and audit trail across
+    multi-entity operations.
+  & Mandatory under NCA and PIA 2021; currently all manual industry-wide \\[4pt]
+\textbf{FieldMaintain}
+  & Predictive maintenance SaaS for oil field and gas plant equipment.
+    OOGP is the reference deployment.
+  & Every Nigerian operator with process plant has this problem \\[4pt]
+\textbf{FieldWatch}
+  & Pipeline integrity monitoring, encroachment detection, and third-party
+    metering reconciliation. AEPP is the 67 km reference deployment.
+  & Crude theft costs the industry billions annually \\[4pt]
+\textbf{HSETrack}
+  & Digital permit-to-work, incident reporting, and near-miss tracking
+    designed for Nigerian site conditions.
+  & Foreign HSE software does not accommodate Nigerian operational reality \\[4pt]
+\textbf{WellOptimise}
+  & Production optimisation recommendations from historical well data ---
+    choke settings, injection schedules, pressure management.
+  & Marginal improvements across two OML blocks translate directly to revenue \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{4pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Target Customer Type} & \textbf{Why They Would Adopt} \\
+\midrule
+Indigenous operators (Seplat, Aiteo, Shoreline, etc.)
+  & Same operational problems; trust Pan Ocean's credibility over foreign vendors \\
+IOC Nigerian subsidiaries
+  & Need locally-compliant solutions; frustrated by foreign software built for
+    Western regulatory environments \\
+Gas companies and midstream operators
+  & Same infrastructure and compliance challenges \\
+NNPC subsidiaries
+  & Regulatory reporting and local content requirements at scale \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{The Compliance Imperative}
+%% ----------------------------------------------------------
+
+{\small
+Several initiatives in the Phase 1 roadmap are not discretionary choices. They are
+responses to legal obligations already in force or recently activated. This reframes
+the investment from ``efficiency project'' to ``compliance infrastructure.''
+}
+
+\vspace{6pt}
+
+\noindent\colorbox{primary!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{5pt}
+  \textbf{\color{primary}April 2026 --- NUPRC Methane and GHG Directive.}\quad
+  NUPRC issued a fresh directive mandating standardised templates and the transition
+  to \textbf{measurement-based methane and GHG reporting} across all upstream
+  operations. OOGP is directly in scope. Manual compliance with this directive is
+  operationally untenable. An automated sensor-to-report pipeline is the only
+  sustainable response.
+  \vspace{5pt}
+\end{minipage}}
+
+\vspace{6pt}
+\small
+\begin{tabularx}{\columnwidth}{@{}lXl@{}}
+\toprule
+\textbf{Obligation} & \textbf{Scope} & \textbf{Status} \\
+\midrule
+HCDT Contribution Tracking
+  & 3\% of opex per PIA 2021; applies across all three group entities
+  & In force since PIA enactment \\[3pt]
+NUPRC Methane / GHG Reporting
+  & Measurement-based; standardised templates; OOGP directly in scope
+  & Fresh directive, April 2026 \\[3pt]
+Nigerian Content Act Reporting
+  & Local spend, employment, and training across all entities and blocks
+  & Ongoing; audit exposure growing \\[3pt]
+OML-147 PSC Reporting to NNPC
+  & Production, cost recovery, and fiscal data under live PSC terms
+  & Ongoing; live obligation \\[3pt]
+Gas Flare Reporting (NGFCP)
+  & Flare volume measurement and programme participation
+  & Ongoing \\[3pt]
+NDPR Compliance
+  & Nigeria Data Protection Regulation applies to employee data and
+    some operational datasets. Any digital system must be designed
+    for NDPR compliance from the outset.
+  & Ongoing \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{Team Architecture}
+%% ----------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.8cm and 2.2cm,
+  box/.style={draw, rounded corners=5pt, minimum width=3.2cm,
+              minimum height=0.9cm, align=center, font=\small},
+  arr/.style={-{Stealth[length=5pt]}, thick, color=primary},
+  lbl/.style={font=\scriptsize, color=darkgrey},
+]
+
+\node[box, fill=primary!12, draw=primary!70, minimum width=7cm] (head)
+  {\textbf{Head of Digital Transformation}\\
+   {\scriptsize Strategy \textbullet\ Architecture \textbullet\ Commercial track}};
+
+\node[box, fill=accent!10, draw=accent!60, below left=0.9cm and 2.8cm of head] (ba)
+  {\textbf{Business Analyst}\\{\scriptsize Domain \textbullet\ Requirements}};
+
+\node[box, fill=primary!8, draw=primary!50, below=0.9cm of head] (tl)
+  {\textbf{Technical Lead}\\{\scriptsize Architecture \textbullet\ Standards}};
+
+\node[box, fill=accent!10, draw=accent!60, below right=0.9cm and 2.8cm of head] (pm)
+  {\textbf{Product Manager}\\{\scriptsize Track B \textbullet\ Market}};
+
+\node[box, fill=primary!5, draw=primary!30, below left=0.9cm and 1.5cm of tl, minimum width=3.0cm] (be)
+  {\textbf{Backend (2--3)}\\{\scriptsize Python \textbullet\ Java \textbullet\ APIs}};
+
+\node[box, fill=primary!5, draw=primary!30, below=0.9cm of tl, minimum width=3.0cm] (de)
+  {\textbf{Data Engineer}\\{\scriptsize Pipelines \textbullet\ ML}};
+
+\node[box, fill=primary!5, draw=primary!30, below right=0.9cm and 1.5cm of tl, minimum width=3.0cm] (fe)
+  {\textbf{Frontend (1--2)}\\{\scriptsize React \textbullet\ React Native}};
+
+\node[box, fill=accent!5, draw=accent!30, below=2.3cm of tl, minimum width=3.0cm] (devops)
+  {\textbf{DevOps / Cloud}\\{\scriptsize Azure \textbullet\ Kubernetes}};
+
+\draw[arr] (head) -- (ba);
+\draw[arr] (head) -- (tl);
+\draw[arr] (head) -- (pm);
+\draw[arr] (tl) -- (be);
+\draw[arr] (tl) -- (de);
+\draw[arr] (tl) -- (fe);
+\draw[arr] (tl) -- (devops);
+
+\end{tikzpicture}
+\end{center}
+
+\vspace{4pt}
+{\small\color{darkgrey}
+\textbf{Hiring principle.}\enspace Mix internal hires (domain knowledge, institutional
+trust) with external engineers (modern practices, cloud-native experience). Prioritise
+diaspora engineers: shared cultural context combined with global technical exposure.
+Invest in DevOps early --- this is what separates products from projects.
+The Business Analyst role requires genuine operational knowledge of Pan Ocean's
+processes; this is the hardest role to fill externally and the most important to
+get right.
+}
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{Common Failure Modes}
+%% ----------------------------------------------------------
+
+\small
+\begin{tabularx}{\columnwidth}{@{}lXX@{}}
+\toprule
+\textbf{Risk} & \textbf{What Happens} & \textbf{Mitigation} \\
+\midrule
+Building for presentations
+  & Impressive demos that don't survive contact with real operations
+  & Ship working software early; iterate from actual field usage \\[3pt]
+Ignoring infrastructure constraints
+  & Solutions requiring constant internet at Ogharefe, Owa Aladinma,
+    or along the AEPP corridor fail immediately
+  & Offline-first architecture from day one; non-negotiable \\[3pt]
+Over-relying on foreign consultants
+  & They don't understand NUPRC, the Niger Delta, Naira FX, or
+    Nigerian site conditions; solutions fail on contact with reality
+  & Build internal capability first; use external for specific
+    skills only, never for strategy \\[3pt]
+Single-entity design
+  & Systems designed only for Pan Ocean that cannot accommodate
+    Newcross entities; commercialisation becomes impossible
+  & Multi-entity architecture from day one; the group is the customer \\[3pt]
+Building bespoke instead of product
+  & Every solution is unique; nothing is reusable across entities
+    or sellable externally
+  & API-first; configuration over customisation from the start \\[3pt]
+Starting too broad
+  & Ten initiatives in parallel; none prove out; credibility lost
+  & Phase approach; fully complete one initiative before scaling \\[3pt]
+Ignoring data quality
+  & AI trained on bad data produces bad and potentially dangerous decisions
+  & Data audit and governance programme before any ML project begins \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{10pt}
+
+%% ----------------------------------------------------------
+\section{Guiding Principles}
+%% ----------------------------------------------------------
+
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Principle} & \textbf{What It Means in Practice} \\
+\midrule
+Nigerian problems first
+  & Build for the NUPRC, the Niger Delta, the Naira, and the generator.
+    Not for Silicon Valley assumptions about infrastructure and connectivity. \\[3pt]
+Offline-first
+  & Core functions must operate without reliable internet at every
+    operational site (Lagos HQ, Ogharefe, Owa Aladinma, AEPP corridor). \\[3pt]
+Explainable AI
+  & Operations managers must understand why the system is recommending
+    something. Black-box AI will not be adopted by field teams. \\[3pt]
+Data before models
+  & A data audit and quality programme precedes any machine learning
+    initiative. Dirty data produces dangerous recommendations. \\[3pt]
+Locally hosted where sensitive
+  & Well data, production history, and commercial data remain on-premise
+    or within the group's Azure tenant. Not on third-party cloud APIs. \\[3pt]
+Price in Naira
+  & Minimise foreign exchange exposure for internal operations and for
+    future customers. This is a genuine competitive advantage in the market. \\[3pt]
+RADA-AMS is the mandate
+  & The group publicly committed to energy and innovation leadership through
+    RADA-AMS in October 2025. This work is the execution engine for that
+    commitment --- not a new idea, but the operationalisation of an
+    existing strategic direction. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\vspace{10pt}
+
+%% ----- Footer -----
+\vspace{6pt}
+{\small\color{darkgrey}
+\textbf{Newcross and Pan Ocean Group of Companies}\enspace|\enspace
+Strategic Vision --- Version 1.0\enspace|\enspace April 2026\enspace|\enspace
+Discussion Paper\\
+Companion document: \textit{AI and Data Roadmap --- Newcross and Pan Ocean Group
+(April 2026)}.\\
+Prepared drawing on direct operational knowledge of group infrastructure,
+NUPRC regulatory updates (April 2026), PIA 2021 obligations, and public
+operational data.
+}
+
+\end{document}

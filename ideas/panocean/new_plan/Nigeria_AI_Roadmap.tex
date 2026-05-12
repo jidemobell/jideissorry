@@ -1,0 +1,740 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper, margin=0.75in]{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tgheros}
+\usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes.rounded, arrows.meta, positioning, calc, fit}
+\renewcommand{\familydefault}{\sfdefault}
+
+%% ===== Colour palette =====
+\definecolor{primary}{RGB}{15,52,96}
+\definecolor{accent}{RGB}{198,124,0}
+\definecolor{tier1}{RGB}{20,100,60}
+\definecolor{tier2}{RGB}{140,80,0}
+\definecolor{tier3}{RGB}{80,80,80}
+\definecolor{lightgrey}{gray}{0.88}
+\definecolor{midgrey}{gray}{0.65}
+\definecolor{darkgrey}{gray}{0.38}
+
+%% ===== Section style =====
+\titleformat{\section}{%
+  \color{primary}\bfseries\large\raggedright
+}{}{0em}{}[\color{lightgrey}{\titlerule[1.5pt]}\vspace{-4pt}]
+
+\titleformat{\subsection}{%
+  \color{accent}\bfseries\normalsize\raggedright
+}{}{0em}{}
+
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+\titlespacing*{\subsection}{0pt}{12pt}{4pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\renewcommand{\arraystretch}{1.25}
+\hypersetup{colorlinks=true, urlcolor=primary}
+
+\newcommand{\spacer}{\vspace{10pt}}
+\newcommand{\bigspacer}{\vspace{16pt}}
+
+%% =====================================================
+\begin{document}
+
+%% ----- Title block -----
+\begin{center}
+  \vspace*{0.1cm}
+  {\color{primary}\LARGE\bfseries NEWCROSS AND PAN OCEAN GROUP}\\[6pt]
+  {\color{primary}\large\bfseries AI and Data Roadmap --- Practical Intelligence
+   for Nigerian Oil and Gas Operations}\\[10pt]
+  {\color{darkgrey}\normalsize Version 2.0\quad\textbar\quad May 2026\quad\textbar\quad
+   Companion to the Strategic Vision Paper}
+\end{center}
+
+\bigspacer
+
+\noindent\colorbox{primary!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{6pt}
+  \textbf{\color{primary}Guiding Principle.}\quad
+  Don't build AI for AI's sake. Build AI for Nigerian realities. Every initiative
+  in this document passes three tests before it is considered viable:
+
+  \vspace{4pt}
+  \textbf{(1)} Does it solve a real, costly problem at the group today? \\
+  \textbf{(2)} Can it be built with data and infrastructure that actually exists? \\
+  \textbf{(3)} Could another Nigerian operator pay for it within three years?
+
+  \vspace{4pt}
+  If any answer is no, the initiative is deprioritised.
+  \vspace{6pt}
+\end{minipage}}
+
+\bigspacer
+
+\noindent\colorbox{accent!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{6pt}
+  \textbf{\color{accent}Note on Sequencing.}\quad
+  The tiers in this document represent \emph{data and infrastructure readiness},
+  not a calendar plan. Tier 1 initiatives can begin with the data and instrumentation
+  that realistically exists today. Tier 2 requires the data foundation built during
+  Tier 1 to be in place. Tier 3 requires sustained investment in data quality and
+  governance over twelve to eighteen months before machine learning is viable.
+
+  \vspace{4pt}
+  Specific dates are deliberately not assigned. The pace of execution depends on
+  internal commitment, parallel initiatives the external view cannot fully see,
+  and the group's own prioritisation.
+  \vspace{6pt}
+\end{minipage}}
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{Nigerian Operational Reality --- Design Constraints}
+%% ----------------------------------------------------------
+
+Every AI system built for this group must be designed around these realities
+from day one. They are not edge cases. They are the standard operating environment.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Operational Reality} & \textbf{Design Implication} \\
+\midrule
+Intermittent internet at remote sites (Ogharefe, Owa Aladinma, AEPP corridor)
+  & Offline-first; edge inference where possible; sync when connected \\
+Power instability across operational sites
+  & Async processing; graceful degradation; no cloud-only dependency \\
+Low bandwidth at field locations
+  & Lightweight models; local inference; minimal data transfer \\
+NUPRC regulatory framework including April 2026 GHG directive
+  & Compliance logic baked into data models, not added as an afterthought \\
+PIA 2021 HCDT obligations (3\% of opex per entity)
+  & HCDT tracking integrated into procurement and finance data pipelines
+    from the first day of data collection \\
+Nigerian Content Act requirements
+  & Spend and employment data structured for NCA reporting from day one \\
+Naira currency and FX exposure
+  & Price and operate in Naira; minimise dollar-denominated cloud costs \\
+Data quality legacy issues across SAP and operational systems
+  & Assume dirty data; build cleaning and validation pipelines before ML \\
+Trust and explainability culture in operations teams
+  & AI recommendations must explain their reasoning to be accepted by
+    engineers and plant managers \\
+Multi-entity group structure (three legal entities, partly shared operations)
+  & All systems must support entity-level and consolidated views simultaneously \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{Tier 1 --- Achievable with Existing Data and Infrastructure}
+%% ----------------------------------------------------------
+
+\noindent\colorbox{tier1!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{4pt}
+  {\small\color{tier1}\textbf{Tier 1 Criteria:} Real problem with immediate cost
+  impact. Buildable with data and infrastructure that exists today, plus
+  realistic instrumentation. Commercial potential clear.}
+  \vspace{4pt}
+\end{minipage}}
+
+\bigspacer
+
+\subsection*{1. Predictive Maintenance --- OOGP Gas Plant (Highest Priority)}
+
+\textbf{Problem.}
+The Ovade-Ogharefe Gas Plant is the group's most complex and highest-consequence
+asset. It is a large-scale cryogenic gas processing facility with 29 LPG storage
+tanks. Equipment failures --- compressors, cryogenic units, storage pressure
+systems --- are extremely costly and potentially dangerous. Maintenance is
+currently reactive: the problem is discovered after it has already become a
+failure or near-failure.
+
+\textbf{Solution.}
+Instrument compressors, cryogenic processing units, and LPG storage tanks
+with vibration, temperature, and pressure sensors. Train time-series anomaly
+detection models on sensor readings combined with existing SAP maintenance
+logs. Output: failure probability scores per asset class, recommended
+maintenance windows, escalation alerts to the right personnel.
+
+\textbf{Why now.}
+The Phase 2 cryogenic expansion was completed in 2022. Maintenance pattern
+data from the new cryogenic systems is still building. This is the ideal
+moment to instrument fully and establish clean data before failure patterns
+are entrenched.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Item} & \textbf{Detail} \\
+\midrule
+Data required     & SAP maintenance logs; SCADA feeds (existing); equipment OEM
+                    specs and fault codes; sensor readings (new instrumentation
+                    required) \\
+Tech stack        & Python, scikit-learn / PyTorch, time-series libraries,
+                    InfluxDB or TimescaleDB for sensor data, Azure IoT Hub for
+                    ingestion \\
+Expected ROI      & Reduction in unplanned downtime (one avoided plant shutdown
+                    justifies the full project); extended equipment lifespan;
+                    reduction in emergency parts procurement \\
+Commercial product & \textbf{FieldMaintain} SaaS --- every gas plant operator in
+                    Nigeria has this problem. OOGP is the reference deployment. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+\subsection*{2. Regulatory Reporting Automation --- NUPRC Returns and GHG Directive}
+
+\textbf{Problem.}
+Quarterly and annual NUPRC regulatory submissions require pulling data from
+multiple systems (SAP, spreadsheets, manual records), formatting it to NUPRC
+templates, and submitting under tight deadlines. This takes teams days per
+submission cycle across OML-98, OML-147, and OOGP. The April 2026 NUPRC
+directive adds mandatory measurement-based methane and GHG reporting templates,
+making manual compliance even more operationally demanding.
+
+\textbf{Solution.}
+Build data extraction pipelines from SAP and operational systems. Use
+structured template-filling with LLM assistance to auto-populate required
+report sections, including the new GHG/methane templates. Add validation rules
+against NUPRC submission requirements. Output: draft submissions ready for
+human review and sign-off. For GHG reporting, sensor data feeds directly into
+the reporting pipeline.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Item} & \textbf{Detail} \\
+\midrule
+Data required     & SAP data; existing NUPRC templates; past approved
+                    submissions (for validation); OOGP sensor data for GHG
+                    measurement \\
+Tech stack        & Python, LangChain or direct LLM API (locally hosted for
+                    sensitive data), SAP data connectors, PDF generation
+                    library \\
+Expected ROI      & Days $\to$ hours per submission cycle; fewer errors;
+                    full audit trail; GHG directive compliance without
+                    additional headcount \\
+Commercial product & \textbf{RegulatoryReport} --- painful for every operator;
+                    foreign vendors consistently fail on Nigerian regulatory
+                    specifics \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+\subsection*{3. Nigerian Content and HCDT Compliance Tracker}
+
+\textbf{Problem.}
+Tracking, calculating, and reporting Nigerian Content Act compliance (local
+spend percentage, local employment, training documentation) is manual,
+error-prone, and creates significant audit risk. Under PIA 2021, the HCDT
+obligation (3\% of opex) adds a further layer of reporting across all three
+group entities --- each with distinct cost bases and procurement records.
+
+\textbf{Solution.}
+Integrate with SAP procurement and HR data across all three entities.
+Auto-classify suppliers and spend by Nigerian Content category using NLP
+classification models. Calculate HCDT contributions per entity from opex
+data. Generate compliance reports in NCA-required format with early-warning
+flags before audit cycles.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Item} & \textbf{Detail} \\
+\midrule
+Data required     & SAP procurement records; HR employee and training data;
+                    vendor master lists; opex ledger per entity \\
+Tech stack        & Python, spaCy or fine-tuned BERT for text classification,
+                    SAP data connectors, report generation pipeline \\
+Expected ROI      & Audit readiness; reduced compliance risk; staff time
+                    savings; HCDT obligations tracked automatically \\
+Commercial product & \textbf{NigerianContent.ai} --- mandatory for all operators;
+                    PIA 2021 raised the stakes significantly \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+\subsection*{4. AEPP Integrity and Third-Party Tariff Reconciliation}
+
+\textbf{Problem.}
+The Amukpe-Escravos Pipeline serves third-party injectors on a tariff basis,
+meaning metering accuracy and theft detection are direct revenue issues, not
+merely operational ones. The 67 km corridor through the Niger Delta with CHDD
+construction still presents exposure. Tariff reconciliation for third-party
+injectors is currently paper-intensive and manually reconciled.
+
+\textbf{Solution.}
+Deploy flow meter anomaly detection across all injection and delivery points.
+Satellite imagery change detection (monthly comparison) along the 67 km Right
+of Way to identify new construction, dig activity, or vegetation clearance
+near the pipeline. Automated metering and tariff billing for injector volumes
+with full audit trail. GPS-coordinated alert system for field response teams.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Item} & \textbf{Detail} \\
+\midrule
+Data required     & SCADA flow meter readings; AEPP GPS coordinates;
+                    satellite imagery (NASRDA preferred as Nigerian-first;
+                    Planet Labs or Airbus Defence as alternatives); existing
+                    tariff and injection records from SAP \\
+Tech stack        & Python, GDAL/rasterio for satellite imagery, statistical
+                    process control for flow anomaly detection, GIS integration \\
+Expected ROI      & Crude theft prevention; metering accuracy directly protects
+                    tariff revenue; removes manual reconciliation overhead \\
+Commercial product & \textbf{FieldWatch} --- every operator with long-haul Niger
+                    Delta pipelines faces identical problems; AEPP is a 67 km
+                    reference site \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+\subsection*{5. HSE Digital Permit-to-Work and Incident Reporting}
+
+\textbf{Problem.}
+OOGP operates cryogenic processing equipment and 29 LPG storage tanks in a
+high-consequence environment. Permit-to-work (PTW) systems are paper-based.
+Incident reporting and near-miss tracking are manual. NUPRC has increasing
+expectations around HSE reporting standards for high-consequence facilities.
+
+\textbf{Solution.}
+Replace paper PTW with a digital system configured for the OOGP environment.
+Integrate incident reporting and near-miss tracking with a searchable
+database. Generate HSE reports automatically for NUPRC submissions. Mobile-
+accessible for field personnel; offline-capable for areas without reliable
+connectivity.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Item} & \textbf{Detail} \\
+\midrule
+Data required     & Existing PTW records (digitise backlog for training);
+                    incident and near-miss historical records; NUPRC HSE
+                    reporting templates \\
+Tech stack        & React Native (mobile + offline-first), FastAPI backend,
+                    PostgreSQL, Azure sync \\
+Expected ROI      & Liability reduction; NUPRC compliance readiness; searchable
+                    incident history for trend analysis \\
+Commercial product & \textbf{HSETrack} --- foreign HSE software does not
+                    understand Nigerian site conditions or NUPRC requirements \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{Tier 2 --- Build After Tier 1 Data Foundation Is in Place}
+%% ----------------------------------------------------------
+
+\noindent\colorbox{tier2!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{4pt}
+  {\small\color{tier2}\textbf{Tier 2 Criteria:}
+  High strategic value but requires data pipeline work from Tier 1 to be in
+  place first. Begin planning in parallel; begin building once data foundations
+  are established.}
+  \vspace{4pt}
+\end{minipage}}
+
+\bigspacer
+
+\subsection*{6. Document Intelligence --- Well Logs, Drilling Reports, Contracts}
+
+\textbf{Problem.}
+OML-98 has been producing since 1976. That is fifty years of drilling reports,
+well logs, geological surveys, production records, and contracts --- most of
+which exist as PDFs, scanned paper, or disconnected digital files. Finding
+specific data (a well's pressure history, a vendor's contract terms, a drilling
+decision rationale) takes hours or days. The group's institutional memory is
+largely inaccessible.
+
+\textbf{Solution.}
+OCR pipeline to digitise historical paper documents. LLM-based document
+classification and metadata extraction. Semantic search (RAG architecture)
+so engineers can query natural-language questions against the full document
+archive. Unlock fifty years of operational knowledge.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Item} & \textbf{Detail} \\
+\midrule
+Data required     & Existing document archives (digital and physical).
+                    Digitisation of paper records is the primary prerequisite. \\
+Tech stack        & Python, Tesseract / AWS Textract for OCR, LangChain
+                    + vector database (pgvector or Weaviate), locally-hosted
+                    LLM (Llama3 or Mistral) for sensitive data \\
+Security note     & Well data and production history is commercially sensitive.
+                    Use locally-hosted LLMs only for this application. \\
+Expected ROI      & Engineer productivity; faster decision-making;
+                    institutional knowledge preserved beyond individual tenure \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+\subsection*{7. Unified Operations Dashboard with Anomaly Detection}
+
+\textbf{Problem.}
+Management has no real-time view across OML-98, OML-147, OOGP, and AEPP
+operations simultaneously. Reports are generated periodically, so problems
+surface late. The three-entity group structure means consolidated visibility
+is even harder to achieve manually.
+
+\textbf{Solution.}
+Unified data integration layer pulling from SAP, SCADA, and operational
+systems across all entities. Real-time dashboard (web and mobile-accessible)
+with configurable KPIs per entity and consolidated group view. Anomaly
+detection layer flagging deviations from expected parameters. Alert system
+with escalation logic.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Item} & \textbf{Detail} \\
+\midrule
+Data required     & SCADA feeds; SAP operational data; logistics and
+                    dispatch records; gas plant throughput data; AEPP
+                    metering records \\
+Tech stack        & Python (FastAPI backend), React or React Native (frontend),
+                    TimescaleDB, statistical anomaly detection layer \\
+Expected ROI      & Faster management response to operational issues;
+                    group-level visibility that currently does not exist
+                    in any form \\
+Commercial product & \textbf{WellWatch} SaaS --- configurability for
+                    multi-entity, multi-block operations is the key
+                    differentiator \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+\subsection*{8. Oil Marketing Intelligence}
+
+\textbf{Problem.}
+Crude lifting schedules, buyer allocation, and NNPC PSC equity crude
+reconciliation on OML-147 are managed manually. The domestic crude market
+has materially changed with Dangote refinery's entry. Oil marketing teams
+are making significant commercial decisions without a systematic data
+environment to support them.
+
+\textbf{Solution.}
+Lifting schedule management and buyer allocation tracking system. PSC equity
+crude reconciliation with NNPC, integrating with the OML-147 PSC reporting
+pipeline. Domestic and export pricing dashboard tracking refinery netbacks,
+regional differentials, and historical buyer performance.
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Item} & \textbf{Detail} \\
+\midrule
+Data required     & Lifting records; buyer contracts; NNPC PSC equity
+                    crude schedules; Platts or Argus price feeds (API) \\
+Tech stack        & Python backend, React frontend, PostgreSQL, price
+                    feed integrations \\
+Expected ROI      & Lifting schedule accuracy; reduced reconciliation
+                    disputes; better-informed commercial decisions in
+                    a shifting market \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{Tier 3 --- Requires Sustained Data Foundation}
+%% ----------------------------------------------------------
+
+\noindent\colorbox{tier3!10}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{4pt}
+  {\small\color{tier3}\textbf{Tier 3 Criteria:}
+  High long-term value but requires sustained upstream data pipeline work
+  before machine learning is viable. Plan architecture now; do not attempt
+  to build now.}
+  \vspace{4pt}
+\end{minipage}}
+
+\bigspacer
+
+\subsection*{9. Production Optimisation --- OML-98 and OML-147}
+
+\textbf{Problem.}
+Well and field performance across both OML blocks is managed based on
+engineering experience and periodic review rather than continuous
+optimisation. Small improvements in choke settings, injection schedules,
+and pressure management across two producing blocks translate to meaningful
+revenue.
+
+\textbf{Solution.}
+Optimisation models trained on historical production data. Recommendations
+for well scheduling, injection rates, and choke settings. Simulation
+environment for testing operational decisions without field risk.
+
+\textbf{Prerequisite.}
+Requires significant data quality improvement work from Tier 1 and Tier 2
+initiatives. This is a sustained build, not a starting point.
+
+\bigspacer
+
+\subsection*{10. Procurement and Supply Chain Optimisation}
+
+\textbf{Problem.}
+Procurement for remote field operations involves significant lead times,
+FX exposure on imported parts, and frequent emergency orders at premium cost.
+Vendor performance is not systematically tracked. Three entities with partly
+overlapping procurement needs creates further inefficiency.
+
+\textbf{Solution.}
+Demand forecasting for spare parts based on maintenance schedules and
+equipment age (feeding directly from the Tier 1 predictive maintenance
+system). Vendor risk scoring from historical delivery performance. FX
+exposure dashboard for imported goods. Consolidated group procurement view
+to identify cross-entity opportunities.
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{AI Design Principles for Group Deployments}
+%% ----------------------------------------------------------
+
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Principle} & \textbf{Rationale and Application} \\
+\midrule
+Offline-first
+  & Core AI functions must produce useful output without reliable internet.
+    OOGP, Ogharefe, and the AEPP corridor are not reliably connected
+    environments. \\
+Edge inference where possible
+  & Run model inference locally at the asset; send only anomaly alerts and
+    summaries to the cloud. Reduces bandwidth, latency, and cloud cost. \\
+Explainable outputs
+  & Every AI recommendation must include a plain-language explanation.
+    ``Compressor Unit 3: 78\% failure probability within 14 days based on
+    bearing vibration trend and last maintenance date.'' Not just a score. \\
+Locally hosted for sensitive data
+  & Well data, production history, commercial contracts, and lifting records
+    must not leave the group's Azure tenant or on-premise servers. Use
+    locally-hosted LLMs (Llama3, Mistral) for these applications. \\
+Assume dirty data
+  & Every pipeline includes a validation and cleaning layer before data
+    reaches any model. Data quality is logged and reported, not silently
+    fixed. \\
+Multi-entity from day one
+  & Every model and dashboard is built to operate at both entity and
+    consolidated group level. Single-entity models will never be commercially
+    reusable. \\
+Compliance logic is first-class
+  & NUPRC reporting requirements, HCDT calculations, and NCA classifications
+    are embedded in data models, not bolted on as reporting features later. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{Sequencing Logic --- Dependencies, Not Dates}
+%% ----------------------------------------------------------
+
+The diagram below shows how the ten initiatives depend on one another. It
+is read from left to right --- arrows mean ``cannot start meaningfully until.''
+The pace is set by internal commitment, not by this document.
+
+\spacer
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.4cm and 0.7cm,
+  found/.style={draw=primary, fill=primary!8, rounded corners=4pt,
+                minimum width=3.6cm, minimum height=1.0cm,
+                align=center, font=\small\bfseries, text=black,
+                inner sep=4pt},
+  t1/.style={draw=tier1!70, fill=tier1!10, rounded corners=4pt,
+             minimum width=3.6cm, minimum height=1.0cm,
+             align=center, font=\small, inner sep=4pt},
+  t2/.style={draw=tier2!70, fill=tier2!10, rounded corners=4pt,
+             minimum width=3.6cm, minimum height=1.0cm,
+             align=center, font=\small, inner sep=4pt},
+  t3/.style={draw=tier3!70, fill=tier3!10, rounded corners=4pt,
+             minimum width=3.6cm, minimum height=1.0cm,
+             align=center, font=\small, inner sep=4pt},
+  arr/.style={-{Stealth[length=4pt]}, thick, color=midgrey},
+]
+
+%% Foundations column
+\node[found] (audit)  {Connectivity \&\\Data Audit};
+\node[found, below=0.5cm of audit] (gov) {Data Governance\\Framework};
+\node[found, below=0.5cm of gov] (instr) {OOGP Sensor\\Instrumentation};
+\node[found, below=0.5cm of instr] (sap) {SAP Data\\Connectors};
+
+%% Tier 1 column
+\node[t1, right=2.0cm of audit] (i2) {2. Regulatory\\Reporting + GHG};
+\node[t1, below=0.5cm of i2] (i3) {3. NCA / HCDT\\Tracker};
+\node[t1, below=0.5cm of i3] (i1) {1. Predictive\\Maintenance OOGP};
+\node[t1, below=0.5cm of i1] (i4) {4. AEPP Integrity\\\& Tariff};
+\node[t1, below=0.5cm of i4] (i5) {5. HSE Digital\\PTW};
+
+%% Tier 2 column
+\node[t2, right=2.0cm of i2] (i7) {7. Unified Ops\\Dashboard};
+\node[t2, below=0.5cm of i7] (i8) {8. Oil Marketing\\Intelligence};
+\node[t2, below=0.5cm of i8] (i6) {6. Document\\Intelligence};
+
+%% Tier 3 column
+\node[t3, right=2.0cm of i7] (i9) {9. Production\\Optimisation};
+\node[t3, below=0.5cm of i9] (i10) {10. Procurement\\\& Supply Chain};
+
+%% Arrows: foundations -> Tier 1
+\draw[arr] (audit.east) -- (i2.west);
+\draw[arr] (audit.east) -- (i3.west);
+\draw[arr] (instr.east) -- (i1.west);
+\draw[arr] (sap.east) -- (i3.west);
+\draw[arr] (sap.east) -- (i4.west);
+
+%% Arrows: Tier 1 -> Tier 2
+\draw[arr] (i1.east) -- (i7.west);
+\draw[arr] (i4.east) -- (i7.west);
+\draw[arr] (i2.east) -- (i8.west);
+
+%% Arrows: Tier 2 -> Tier 3
+\draw[arr] (i7.east) -- (i9.west);
+\draw[arr] (i1.east) -- ([yshift=-2pt] i10.west);
+
+%% Headers
+\node[font=\small\bfseries, color=primary, above=0.2cm of audit] {Foundations};
+\node[font=\small\bfseries, color=tier1, above=0.2cm of i2] {Tier 1};
+\node[font=\small\bfseries, color=tier2, above=0.2cm of i7] {Tier 2};
+\node[font=\small\bfseries, color=tier3, above=0.2cm of i9] {Tier 3};
+
+\end{tikzpicture}
+\end{center}
+
+\spacer
+{\small\color{darkgrey}
+\textbf{Reading the diagram.}\enspace
+Foundations are the prerequisites that make everything else possible. Tier 1
+initiatives can begin as soon as their specific foundations are in place ---
+not all at once. Tier 2 follows when Tier 1 has produced clean, reliable data.
+Tier 3 follows when Tier 2 dashboards and document intelligence have matured
+enough to support model training. There is no fixed calendar; the sequence is
+the constraint, not the dates.
+}
+
+\bigspacer
+
+%% ----------------------------------------------------------
+\section{Data and Infrastructure Prerequisites}
+%% ----------------------------------------------------------
+
+No AI initiative succeeds without the data foundation beneath it. The
+following are non-negotiable prerequisites before machine learning work
+begins.
+
+\spacer
+
+\noindent\colorbox{primary!8}{%
+\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
+  \vspace{6pt}
+  \textbf{\color{primary}Communications Infrastructure as a Transformation Dependency.}\quad
+  The group's existing LAN, WAN, voice, and remote rig data communications
+  infrastructure --- spanning Lagos HQ, Ogharefe, Owa Aladinma, and Newcross
+  E\&P rig sites --- is the physical foundation for every data initiative in
+  this roadmap.
+
+  \vspace{4pt}
+  A degraded WAN link to Ogharefe does not just reduce productivity: it
+  silences SCADA feeds and creates blind spots in operational monitoring.
+  A failed VSAT link to a remote rig means drilling parameter data stops
+  transmitting and decisions are made on stale information.
+
+  \vspace{4pt}
+  Communications infrastructure health is therefore a dependency of the
+  transformation programme, not a separate IT concern. A connectivity
+  audit across all sites must run in parallel with the data audit.
+  \vspace{6pt}
+\end{minipage}}
+
+\spacer
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+\textbf{Prerequisite} & \textbf{What It Means} \\
+\midrule
+Communications and connectivity audit
+  & Assess WAN, LAN, VSAT, and rig data link capacity, reliability, and
+    redundancy across all sites (Lagos HQ, Ogharefe, Owa Aladinma, rig
+    sites). Identify gaps that would prevent reliable data pipeline
+    operation. Runs in parallel with the data audit. \\
+Data audit
+  & Assess quality, completeness, and accessibility of SAP, SCADA, and
+    operational data across all three entities. \\
+Data governance framework
+  & Define ownership, quality standards, access controls, and retention
+    policies across the group; NDPR compliance built in. \\
+Sensor instrumentation --- OOGP
+  & Install vibration, temperature, and pressure sensors on priority
+    compressor and cryogenic units where not already in place. \\
+SAP data connectors
+  & Build or procure reliable, authenticated API connections to SAP
+    financial, maintenance, procurement, and HR modules. \\
+Azure IoT Hub configuration
+  & Set up IoT Hub for OOGP sensor ingestion; configure time-series
+    database (InfluxDB or TimescaleDB) for sensor data storage. \\
+Satellite imagery subscription
+  & NASRDA (Nigerian-first), Planet Labs, or Airbus Defence for
+    AEPP corridor change detection. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\bigspacer
+
+%% ----- Footer -----
+{\small\color{darkgrey}
+\textbf{Newcross and Pan Ocean Group of Companies}\enspace|\enspace
+AI and Data Roadmap --- Version 2.0\enspace|\enspace May 2026\\
+Companion document: \textit{Digital Transformation --- A Perspective Paper
+(Newcross and Pan Ocean Group, May 2026)}.\\
+All AI use cases are grounded in available data, existing infrastructure,
+and Nigerian operational reality --- not research projects.
+}
+
+\end{document}

@@ -1,0 +1,15 @@
+ls ~/.ssh/ && echo "---" && cat ~/.ssh/config 2>/dev/null || echo "No SSH config file found"
+
+
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+
+# atensaiadmin account (work)
+Host github.com-work
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_new
+  IdentitiesOnly yes

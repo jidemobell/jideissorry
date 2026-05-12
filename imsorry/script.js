@@ -13,7 +13,6 @@ const receiptFrequency = document.getElementById("receipt-frequency");
 const emojiSummary = document.getElementById("emoji-summary");
 const emojiWarning = document.getElementById("emoji-warning");
 const apologyNote = document.getElementById("apology-note");
-const generateNoteButton = document.getElementById("generate-note");
 
 const emojiButtons = Array.from(document.querySelectorAll(".emoji-button"));
 const selectedEmojis = new Set();
@@ -76,8 +75,6 @@ function formatEventName(eventName) {
       return "picked a smiley";
     case "frequency-change":
       return "changed the check-in slider";
-    case "note-generate":
-      return "generated the apology note";
     default:
       return "interacted";
   }
@@ -96,11 +93,11 @@ function formatTimestamp(timestamp) {
 
 function renderEngagementState() {
   if (!engagementState) {
-    receiptEngagement.textContent = "No interaction yet";
+    receiptEngagement.textContent = "No sign yet";
     return;
   }
 
-  receiptEngagement.textContent = `Yes, she ${formatEventName(engagementState.lastEvent)} on ${formatTimestamp(engagementState.lastAt)}`;
+  receiptEngagement.textContent = `She ${formatEventName(engagementState.lastEvent)} on ${formatTimestamp(engagementState.lastAt)}`;
 }
 
 function registerInteraction(eventName) {
@@ -145,8 +142,6 @@ function buildEventDetail(eventName) {
       return Array.from(selectedEmojis).join(" ") || "Emoji toggled";
     case "frequency-change":
       return formatFrequency(Number(frequencySlider.value));
-    case "note-generate":
-      return "Apology note generated";
     default:
       return null;
   }
@@ -159,8 +154,9 @@ function updateCharCount() {
   }
   charCount.textContent = `${ventInput.value.length} / ${maxChars}`;
   receiptRant.textContent = ventInput.value.trim()
-    ? `${ventInput.value.trim().length} characters of honest anger`
-    : "Still loading the fury";
+    ? `She left ${ventInput.value.trim().length} characters in the vent box`
+    : "She has not typed anything yet";
+  buildApologyNote();
 }
 
 function updateFrequency() {
@@ -168,6 +164,7 @@ function updateFrequency() {
   const label = formatFrequency(value);
   frequencyValue.textContent = label;
   receiptFrequency.textContent = label;
+  buildApologyNote();
 }
 
 function updateEmojiState() {
@@ -177,8 +174,9 @@ function updateEmojiState() {
   emojiSummary.textContent = hasEmoji
     ? `Smiley evidence received: ${picked.join(" ")}`
     : "No smile detected yet.";
-  receiptEmoji.textContent = hasEmoji ? picked.join(" ") : "None submitted";
+  receiptEmoji.textContent = hasEmoji ? `She picked ${picked.join(" ")}` : "No smiley picked yet";
   emojiWarning.textContent = hasEmoji ? "Smile received" : "Pick at least one";
+  buildApologyNote();
 }
 
 function buildApologyNote() {
@@ -235,11 +233,6 @@ emojiButtons.forEach((button) => {
     registerInteraction("emoji-pick");
     updateEmojiState();
   });
-});
-
-generateNoteButton.addEventListener("click", () => {
-  registerInteraction("note-generate");
-  buildApologyNote();
 });
 
 updateCharCount();

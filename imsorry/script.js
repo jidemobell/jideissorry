@@ -18,6 +18,10 @@ const visitorIdStorageKey = "imsorry-visitor-id";
 
 const supabase = createSupabaseClient();
 const visitorId = getVisitorId();
+const sessionOpenStorageKey = "imsorry-session-open";
+let locationInfo = null;
+
+initLocationAndOpen();
 
 let engagementState = loadEngagementState();
 
@@ -120,7 +124,32 @@ async function logInteraction(eventName) {
     event_detail: eventDetail,
     page_url: window.location.href,
     user_agent: navigator.userAgent,
+    country: locationInfo?.country ?? null,
+    region: locationInfo?.region ?? null,
+    city: locationInfo?.city ?? null,
   });
+}
+
+async function initLocationAndOpen() {
+  try {
+    const response = await fetch("https://ipapi.co/json/");
+    if (response.ok) {
+      const data = await response.json();
+      locationInfo = {
+        country: data.country_name || data.country || null,
+        region: data.region || null,
+        city: data.city || null,
+      };
+    }
+  } catch {
+    // Ignore location failures; we still log the open event.
+  }
+
+  const alreadyOpenedThisSession = sessionStorage.getItem(sessionOpenStorageKey);
+  if (!alreadyOpenedThisSession) {
+    sessionStorage.setItem(sessionOpenStorageKey, "1");
+    logInteraction("page-open").catch(() => {});
+  }
 }
 
 function buildEventDetail(eventName) {

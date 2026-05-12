@@ -3,131 +3,88 @@ import { supabaseConfig } from "./supabase-config.js";
 
 const ventInput = document.getElementById("vent-message");
 const saveVentButton = document.getElementById("save-vent");
+const saveVentLabel = saveVentButton.querySelector(".primary-label");
 const charCount = document.getElementById("char-count");
-const frequencySlider = document.getElementById("frequency-slider");
-const frequencyValue = document.getElementById("frequency-value");
-const emojiSummary = document.getElementById("emoji-summary");
-const emojiWarning = document.getElementById("emoji-warning");
-const apologyNote = document.getElementById("apology-note");
+const smileStatus = document.getElementById("smile-status");
+const toast = document.getElementById("toast");
 
-const emojiButtons = Array.from(document.querySelectorAll(".emoji-button"));
+const emojiButtons = Array.from(document.querySelectorAll(".emoji"));
 const selectedEmojis = new Set();
+
 const maxChars = 500;
-const engagementStorageKey = "imsorry-engagement-state";
 const visitorIdStorageKey = "imsorry-visitor-id";
+const sessionOpenStorageKey = "imsorry-session-open";
 
 const supabase = createSupabaseClient();
 const visitorId = getVisitorId();
-const sessionOpenStorageKey = "imsorry-session-open";
 let locationInfo = null;
+let toastTimer = null;
+let ventDebounce = null;
 
 initLocationAndOpen();
 
-let engagementState = loadEngagementState();
-
-function formatFrequency(value) {
-  return value === 1 ? "Every day" : `Every ${value} days`;
-}
-
 function createSupabaseClient() {
-  if (!supabaseConfig.url || !supabaseConfig.anonKey) {
-    return null;
-  }
-
+  if (!supabaseConfig.url || !supabaseConfig.anonKey) return null;
   return createClient(supabaseConfig.url, supabaseConfig.anonKey);
 }
 
 function getVisitorId() {
-  const existingId = localStorage.getItem(visitorIdStorageKey);
-  if (existingId) {
-    return existingId;
-  }
-
-  const nextId = crypto.randomUUID();
-  localStorage.setItem(visitorIdStorageKey, nextId);
-  return nextId;
+  const existing = localStorage.getItem(visitorIdStorageKey);
+  if (existing) return existing;
+  const next = crypto.randomUUID();
+  localStorage.setItem(visitorIdStorageKey, next);
+  return next;
 }
 
-function loadEngagementState() {
-  try {
-    const stored = localStorage.getItem(engagementStorageKey);
-    return stored ? JSON.parse(stored) : null;
-  } catch {
-    return null;
-  }
+function showToast(message) {
+  toast.textContent = message;
+  toast.hidden = false;
+  void toast.offsetWidth;
+  toast.classList.add("is-visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("is-visible");
+    setTimeout(() => { toast.hidden = true; }, 250);
+  }, 2200);
 }
 
-function saveEngagementState() {
-  try {
-    localStorage.setItem(engagementStorageKey, JSON.stringify(engagementState));
-  } catch {
-    // Ignore storage failures and keep the UI working.
+function updateCharCount() {
+  if (ventInput.value.length > maxChars) {
+    ventInput.value = ventInput.value.slice(0, maxChars);
   }
+  charCount.textContent = String(ventInput.value.length);
 }
 
-function formatEventName(eventName) {
+function buildEventDetail(eventName) {
   switch (eventName) {
     case "vent-input":
-      return "typed in the vent window";
+      return `${ventInput.value.trim().length} characters entered`;
     case "vent-save":
-      return "sealed the vent";
+      return ventInput.value.trim().slice(0, 500) || "Vent sealed";
     case "emoji-pick":
-      return "picked a smiley";
-    case "frequency-change":
-      return "changed the check-in slider";
+      return Array.from(selectedEmojis).join(" ") || "Emoji toggled";
     default:
-      return "interacted";
+      return null;
   }
-}
-
-function formatTimestamp(timestamp) {
-  if (!timestamp) {
-    return "just now";
-  }
-
-  return new Date(timestamp).toLocaleString([], {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
-}
-
-function renderEngagementState() {
-  return engagementState;
-}
-
-function registerInteraction(eventName) {
-  const now = new Date().toISOString();
-
-  engagementState = {
-    firstEvent: engagementState?.firstEvent ?? eventName,
-    firstAt: engagementState?.firstAt ?? now,
-    lastEvent: eventName,
-    lastAt: now,
-  };
-
-  saveEngagementState();
-  renderEngagementState();
-  logInteraction(eventName).catch(() => {});
 }
 
 async function logInteraction(eventName) {
-  if (!supabase) {
-    return;
+  if (!supabase) return;
+  try {
+    await supabase.from("apology_interactions").insert({
+      site_label: supabaseConfig.siteLabel,
+      visitor_id: visitorId,
+      event_name: eventName,
+      event_detail: buildEventDetail(eventName),
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+      country: locationInfo?.country ?? null,
+      region: locationInfo?.region ?? null,
+      city: locationInfo?.city ?? null,
+    });
+  } catch {
+    // Silent.
   }
-
-  const eventDetail = buildEventDetail(eventName);
-
-  await supabase.from("apology_interactions").insert({
-    site_label: supabaseConfig.siteLabel,
-    visitor_id: visitorId,
-    event_name: eventName,
-    event_detail: eventDetail,
-    page_url: window.location.href,
-    user_agent: navigator.userAgent,
-    country: locationInfo?.country ?? null,
-    region: locationInfo?.region ?? null,
-    city: locationInfo?.city ?? null,
-  });
 }
 
 async function initLocationAndOpen() {
@@ -142,98 +99,40 @@ async function initLocationAndOpen() {
       };
     }
   } catch {
-    // Ignore location failures; we still log the open event.
+    // Ignore.
   }
 
-  const alreadyOpenedThisSession = sessionStorage.getItem(sessionOpenStorageKey);
-  if (!alreadyOpenedThisSession) {
+  if (!sessionStorage.getItem(sessionOpenStorageKey)) {
     sessionStorage.setItem(sessionOpenStorageKey, "1");
-    logInteraction("page-open").catch(() => {});
+    logInteraction("page-open");
   }
 }
 
-function buildEventDetail(eventName) {
-  switch (eventName) {
-    case "vent-input":
-      return `${ventInput.value.trim().length} characters entered`;
-    case "vent-save":
-      return "Vent sealed";
-    case "emoji-pick":
-      return Array.from(selectedEmojis).join(" ") || "Emoji toggled";
-    case "frequency-change":
-      return formatFrequency(Number(frequencySlider.value));
-    default:
-      return null;
-  }
-}
+ventInput.addEventListener("input", () => {
+  updateCharCount();
+  clearTimeout(ventDebounce);
+  ventDebounce = setTimeout(() => {
+    logInteraction("vent-input");
+  }, 600);
+});
 
-function updateCharCount() {
-  const trimmed = ventInput.value.slice(0, maxChars);
-  if (trimmed !== ventInput.value) {
-    ventInput.value = trimmed;
-  }
-  charCount.textContent = `${ventInput.value.length} / ${maxChars}`;
-  buildApologyNote();
-}
-
-function updateFrequency() {
-  const value = Number(frequencySlider.value);
-  const label = formatFrequency(value);
-  frequencyValue.textContent = label;
-  buildApologyNote();
-}
-
-function updateEmojiState() {
-  const picked = Array.from(selectedEmojis);
-  const hasEmoji = picked.length > 0;
-
-  emojiSummary.textContent = hasEmoji
-    ? `Smiley evidence received: ${picked.join(" ")}`
-    : "No smile detected yet.";
-  emojiWarning.textContent = hasEmoji ? "Smile received" : "Pick at least one";
-  buildApologyNote();
-}
-
-function buildApologyNote() {
-  const ventText = ventInput.value.trim();
-  const picked = Array.from(selectedEmojis);
-  const frequencyText = formatFrequency(Number(frequencySlider.value)).toLowerCase();
-
-  if (!picked.length) {
-    emojiWarning.textContent = "Pick at least one";
-    emojiWarning.focus?.();
-    apologyNote.textContent = "I need one smiley emoji before this apology note unlocks.";
+saveVentButton.addEventListener("click", () => {
+  const text = ventInput.value.trim();
+  if (!text) {
+    ventInput.focus();
+    showToast("Nothing to leave yet.");
     return;
   }
-
-  const toneLine = ventText
-    ? `I heard this clearly: "${ventText.slice(0, 120)}${ventText.length > 120 ? "..." : ""}".`
-    : "I know there is hurt here even if you do not feel like typing it right now.";
-
-  apologyNote.textContent = `${toneLine} I am not asking you to skip your anger. I am asking for a chance to keep showing up ${frequencyText}, with patience, accountability, and at least one remembered smile ${picked.join(" ")}.`;
-}
-
-ventInput.addEventListener("input", updateCharCount);
-ventInput.addEventListener("input", () => {
-  registerInteraction("vent-input");
-});
-saveVentButton.addEventListener("click", () => {
-  registerInteraction("vent-save");
-  updateCharCount();
-  saveVentButton.textContent = "Vent sealed";
-});
-
-frequencySlider.addEventListener("input", () => {
-  registerInteraction("frequency-change");
-  updateFrequency();
+  logInteraction("vent-save");
+  saveVentButton.classList.add("is-done");
+  saveVentLabel.textContent = "Got it. Thank you.";
+  showToast("Heard you.");
 });
 
 emojiButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const emoji = button.dataset.emoji;
-    if (!emoji) {
-      return;
-    }
+    if (!emoji) return;
 
     if (selectedEmojis.has(emoji)) {
       selectedEmojis.delete(emoji);
@@ -245,12 +144,18 @@ emojiButtons.forEach((button) => {
       button.setAttribute("aria-pressed", "true");
     }
 
-    registerInteraction("emoji-pick");
-    updateEmojiState();
+    if (selectedEmojis.size > 0) {
+      smileStatus.textContent = "received";
+      smileStatus.classList.add("is-on");
+      smileStatus.classList.remove("soft");
+    } else {
+      smileStatus.textContent = "optional";
+      smileStatus.classList.remove("is-on");
+      smileStatus.classList.add("soft");
+    }
+
+    logInteraction("emoji-pick");
   });
 });
 
 updateCharCount();
-updateFrequency();
-updateEmojiState();
-renderEngagementState();

@@ -6,10 +6,6 @@ const saveVentButton = document.getElementById("save-vent");
 const charCount = document.getElementById("char-count");
 const frequencySlider = document.getElementById("frequency-slider");
 const frequencyValue = document.getElementById("frequency-value");
-const receiptEngagement = document.getElementById("receipt-engagement");
-const receiptRant = document.getElementById("receipt-rant");
-const receiptEmoji = document.getElementById("receipt-emoji");
-const receiptFrequency = document.getElementById("receipt-frequency");
 const emojiSummary = document.getElementById("emoji-summary");
 const emojiWarning = document.getElementById("emoji-warning");
 const apologyNote = document.getElementById("apology-note");
@@ -92,12 +88,7 @@ function formatTimestamp(timestamp) {
 }
 
 function renderEngagementState() {
-  if (!engagementState) {
-    receiptEngagement.textContent = "No sign yet";
-    return;
-  }
-
-  receiptEngagement.textContent = `She ${formatEventName(engagementState.lastEvent)} on ${formatTimestamp(engagementState.lastAt)}`;
+  return engagementState;
 }
 
 function registerInteraction(eventName) {
@@ -153,9 +144,6 @@ function updateCharCount() {
     ventInput.value = trimmed;
   }
   charCount.textContent = `${ventInput.value.length} / ${maxChars}`;
-  receiptRant.textContent = ventInput.value.trim()
-    ? `She left ${ventInput.value.trim().length} characters in the vent box`
-    : "She has not typed anything yet";
   buildApologyNote();
 }
 
@@ -163,7 +151,6 @@ function updateFrequency() {
   const value = Number(frequencySlider.value);
   const label = formatFrequency(value);
   frequencyValue.textContent = label;
-  receiptFrequency.textContent = label;
   buildApologyNote();
 }
 
@@ -174,7 +161,6 @@ function updateEmojiState() {
   emojiSummary.textContent = hasEmoji
     ? `Smiley evidence received: ${picked.join(" ")}`
     : "No smile detected yet.";
-  receiptEmoji.textContent = hasEmoji ? `She picked ${picked.join(" ")}` : "No smiley picked yet";
   emojiWarning.textContent = hasEmoji ? "Smile received" : "Pick at least one";
   buildApologyNote();
 }

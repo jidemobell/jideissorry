@@ -20,8 +20,13 @@ const visitorId = getVisitorId();
 let locationInfo = null;
 let toastTimer = null;
 let ventDebounce = null;
+let pageOpenLogged = false;
 
-initLocationAndOpen();
+const botPattern = /bot|crawler|spider|preview|slackbot|discordbot|whatsapp|facebookexternalhit|twitterbot|linkedinbot|telegram|skypeuripreview|embedly|quora|pinterest|googlebot|bingbot|yandex|baiduspider|duckduckbot|applebot|headlesschrome|phantomjs|puppeteer|playwright|lighthouse|chrome-lighthouse/i;
+
+if (!botPattern.test(navigator.userAgent || "")) {
+  initLocationAndOpen();
+}
 
 function createSupabaseClient() {
   if (!supabaseConfig.url || !supabaseConfig.anonKey) return null;
@@ -102,10 +107,27 @@ async function initLocationAndOpen() {
     // Ignore.
   }
 
-  if (!sessionStorage.getItem(sessionOpenStorageKey)) {
+  // Wait for a real human signal before logging the page-open.
+  // Bots fetch, render once, take a screenshot, and leave; they almost
+  // never produce these interaction events.
+  const events = ["pointerdown", "touchstart", "mousemove", "scroll", "keydown", "focus"];
+  const visibleAt = Date.now();
+
+  const maybeLogOpen = () => {
+    if (pageOpenLogged) return;
+    if (document.visibilityState !== "visible") return;
+    if (Date.now() - visibleAt < 2000) return; // require ≥2s of visible time
+    if (sessionStorage.getItem(sessionOpenStorageKey)) return;
+
+    pageOpenLogged = true;
     sessionStorage.setItem(sessionOpenStorageKey, "1");
     logInteraction("page-open");
-  }
+    events.forEach((evt) => window.removeEventListener(evt, maybeLogOpen, true));
+  };
+
+  events.forEach((evt) =>
+    window.addEventListener(evt, maybeLogOpen, { capture: true, passive: true })
+  );
 }
 
 ventInput.addEventListener("input", () => {
